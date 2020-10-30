@@ -1,0 +1,319 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 60px;
+  padding: 0 10px;
+  background-color: rgba(51, 51, 51, 0.9);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
+
+.nav-bar .title {
+  color: #fff;
+}
+
+.nav-bar .right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav-bar .right .profile-picture {
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.nav-bar .right .no-profile-picture {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 30px;
+  color: #333;
+  background-color: #dcdcdc;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.chat {
+  margin-bottom: 50px;
+  padding: 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chat .message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.chat .message:last-child {
+  margin-bottom: 0;
+}
+
+.chat .message .message-picture {
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.chat .message .no-message-picture {
+  background-color: #dcdcdc;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 30px;
+  color: #333;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;
+  margin-right: 10px;
+}
+
+.chat .message .content {
+  color: #fff;
+  padding: 10px;
+  background-color: #2F89FC;
+  border-radius: 10px 10px 10px 0;
+  max-width: 300px;
+}
+
+.chat .message .content p {
+  margin: 5px 0;
+  font-size: 18px;
+  word-break: break-all;
+}
+
+.chat .mine {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.chat .mine .content {
+  background-color: #333;
+  border-radius: 10px 10px 0 10px;
+}
+
+.chat .mine .content h3 {
+  text-align: end;
+}
+
+.chat .mine .content small {
+  text-align: end;
+}
+
+.chat .mine .content p {
+  margin-top: 0;
+}
+
+.message-form {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.message-form .input-container {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.message-form .input-container input {
+  border: none;
+  outline: none;
+  background-color: #fff;
+  font-size: 26px;
+  width: 100%;
+  padding: 10px;
+  color: #333;
+}
+
+.message-form .input-container input:focus {
+  background-color: #f3f3f3;
+}
+
+.message-form .input-container button {
+  outline: none;
+  cursor: pointer;
+  background-color: #2F89FC;
+  border: none;
+  color: #fff;
+  padding: 0 12px;
+}
+
+.message-form .input-container button:hover {
+  background-color: #046df4;
+}
+
+.home {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-image: url("../assets/bg.svg");
+  background-size: cover;
+}
+
+.home .container .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 30px;
+}
+
+.home .container .logo img {
+  height: 100px;
+}
+
+.home .container .title {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.home .container .button {
+  width: 100%;
+}
+
+.home .container #register {
+  margin-bottom: 10px;
+}
+
+.button {
+  border: none;
+  outline: none;
+  background-color: #2F89FC;
+  text-decoration: none;
+  padding: 10px;
+  color: #fff;
+  display: block;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #046df4;
+}
+
+.login, .register {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  background-image: url("../assets/bg.svg");
+  background-size: cover;
+}
+
+.login .form p .link, .register .form p .link {
+  text-decoration: none;
+  color: #2F89FC;
+}
+
+.login .form h1, .register .form h1 {
+  margin-bottom: 30px;
+}
+
+.login .form button, .register .form button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.login .form .input-container, .register .form .input-container {
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #F3F3F3;
+  padding: 0 0 0 10px;
+  border-bottom: 3px solid #f3f3f3;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.login .form .input-container:focus-within, .register .form .input-container:focus-within {
+  border-bottom-color: #2F89FC;
+}
+
+.login .form .input-container:focus-within i, .register .form .input-container:focus-within i {
+  color: #333;
+}
+
+.login .form .input-container i, .register .form .input-container i {
+  color: #a8a8a8;
+}
+
+.login .form .input-container input, .register .form .input-container input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 26px;
+  padding: 10px 10px 7px 10px;
+  color: #333;
+}
+
+.login .form .error:focus-within, .register .form .error:focus-within {
+  border-bottom-color: red;
+}
+/*# sourceMappingURL=index.css.map */

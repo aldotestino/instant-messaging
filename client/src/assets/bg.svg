@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="812" viewBox="0 0 375 812">
+  <defs>
+    <clipPath id="clip-iPhone_X_1">
+      <rect width="375" height="812"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_1" data-name="iPhone X – 1" clip-path="url(#clip-iPhone_X_1)">
+    <rect width="375" height="812" fill="#fff"/>
+    <g id="Raggruppa_1" data-name="Raggruppa 1">
+      <circle id="Ellisse_2" data-name="Ellisse 2" cx="33.5" cy="33.5" r="33.5" transform="translate(-14 701)" fill="#2f89fc" opacity="0.64"/>
+      <circle id="Ellisse_1" data-name="Ellisse 1" cx="49.5" cy="49.5" r="49.5" transform="translate(-49 685)" fill="#2f89fc"/>
+      <circle id="Ellisse_4" data-name="Ellisse 4" cx="18.5" cy="18.5" r="18.5" transform="translate(70 726)" fill="#2f89fc" opacity="0.58"/>
+      <circle id="Ellisse_3" data-name="Ellisse 3" cx="22.5" cy="22.5" r="22.5" transform="translate(66 714)" fill="#2f89fc"/>
+    </g>
+    <g id="Raggruppa_6" data-name="Raggruppa 6" transform="translate(376 846) rotate(180)">
+      <circle id="Ellisse_2-2" data-name="Ellisse 2" cx="33.5" cy="33.5" r="33.5" transform="translate(-14 701)" fill="#2f89fc" opacity="0.64"/>
+      <circle id="Ellisse_1-2" data-name="Ellisse 1" cx="49.5" cy="49.5" r="49.5" transform="translate(-49 685)" fill="#2f89fc"/>
+      <circle id="Ellisse_4-2" data-name="Ellisse 4" cx="18.5" cy="18.5" r="18.5" transform="translate(70 726)" fill="#2f89fc" opacity="0.58"/>
+      <circle id="Ellisse_3-2" data-name="Ellisse 3" cx="22.5" cy="22.5" r="22.5" transform="translate(66 714)" fill="#2f89fc"/>
+    </g>
+  </g>
+</svg>

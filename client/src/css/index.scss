@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-bar {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  padding: 0 10px;
+  background-color: rgba($color: #333, $alpha: 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.3);
+  backdrop-filter: blur(5px);
+
+  .title {
+    color: #fff;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+
+    .profile-picture {
+      height: 40px;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+
+    .no-profile-picture {
+      text-align: center;
+      vertical-align: middle;
+      line-height: 40px;;
+      font-size: 30px;
+      color: #333;
+      background-color: #dcdcdc;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+  }
+}
+
+.chat {
+  margin-bottom: 50px;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+
+  .message {
+    display: flex;
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .message-picture {
+      height: 40px;
+      border-radius: 50%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .no-message-picture {
+      background-color: #dcdcdc;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 30px;
+      color: #333;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 40px;;
+      margin-right: 10px;
+    }
+
+    .content {
+      color: #fff;
+      padding: 10px;
+      background-color: #2F89FC;
+      border-radius: 10px 10px 10px 0;
+      max-width: 300px;
+      p {
+        margin: 5px 0;
+        font-size: 18px;
+        word-break: break-all;
+      }
+    }
+  }
+
+  .mine {
+    align-self: flex-end;
+
+    .content {
+      background-color: #333;
+      border-radius: 10px 10px 0 10px;
+
+      h3{
+        text-align: end;
+      }
+
+      small {
+        text-align: end;
+      }
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.message-form {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  
+  .input-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    input {
+      border: none;
+      outline: none;
+      background-color: #fff;
+      font-size: 26px;
+      width: 100%;
+      padding: 10px;
+      color: #333;
+      &:focus {
+        background-color: #f3f3f3;
+      }
+    }
+
+    button {
+      outline: none;
+      cursor: pointer;
+      background-color: #2F89FC;
+      border: none;
+      color: #fff;
+      padding: 0 12px;
+      &:hover {
+        background-color: darken($color: #2F89FC, $amount: 10);
+      }
+    }
+  }
+}
+
+.home {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../assets/bg.svg');
+  background-size: cover;
+
+  .container {
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+
+      img {
+        height: 100px;
+      }
+    }
+
+    .title {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    #register {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.button {
+  border: none;
+  outline: none;
+  background-color: #2F89FC;
+  text-decoration: none;
+  padding: 10px;
+  color: #fff;
+  display: block;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+
+  &:hover {
+    background-color: darken($color: #2F89FC, $amount: 10);
+  }
+}
+
+
+.login, .register {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-image: url('../assets/bg.svg');
+  background-size: cover;
+
+  .form {
+
+    p {
+      .link {
+        text-decoration: none;
+        color: #2F89FC;
+      }
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .input-container {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      background-color: #F3F3F3;
+      padding: 0 0 0 10px;
+      border-bottom: 3px solid #f3f3f3;
+      transition: all .2s ease;
+      &:focus-within {
+        border-bottom-color: #2F89FC;
+
+        i{
+          color: #333;
+        }
+      }
+
+      i {
+        color: rgb(168, 168, 168);
+      }
+
+      input {
+        width: 100%;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 26px;
+        padding: 10px 10px 7px 10px;
+        color: #333;
+      }
+    }
+
+    .error {
+      &:focus-within {
+        border-bottom-color: red;
+      }
+    }
+  }
+}
