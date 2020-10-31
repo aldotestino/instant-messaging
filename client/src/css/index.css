@@ -88,15 +88,16 @@ body {
 }
 
 .chat .message .message-picture {
-  height: 40px;
+  min-height: 40px;
+  min-width: 40px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
 .chat .message .no-message-picture {
   background-color: #dcdcdc;
-  width: 40px;
-  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
   font-size: 30px;
   color: #333;
