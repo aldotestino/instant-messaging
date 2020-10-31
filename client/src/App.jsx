@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import socket_io from 'socket.io-client';
 
@@ -10,6 +10,8 @@ import Register from './views/Register';
 const base_url = 'https://server-instant-messaging.herokuapp.com';
 
 function App() {
+
+  let io = useRef(socket_io(base_url));
 
   const [messages, setMessages] = useState([]);
 
@@ -37,21 +39,21 @@ function App() {
     }
   }, [user]);
 
-  async function connectToSocket() {
-    const io = socket_io(base_url);
-    io.on('message', data => {
-      setMessages(prevMessages => [...prevMessages, data]);
-    });
-  }
 
   useEffect(() => {
-    async function init() {
-      await getMessages();
-      await connectToSocket();
-    }
     if (user.token) {
-      init();
+      getMessages().then(() => {
+        io.current = socket_io(base_url);
+        io.current.on('message', data => {
+          setMessages(prevMessages => [...prevMessages, data]);
+        });
+      });
+    } else {
+      io.current.disconnect();
     }
+
+    return () => io.current.disconnect();
+
   }, [user, getMessages]);
 
   return (
