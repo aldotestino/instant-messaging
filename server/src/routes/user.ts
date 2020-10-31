@@ -56,7 +56,7 @@ userRoute.post('/register', async (req, res, next) => {
       subject: "Conferma il tuo account",
       html: `
 <h1>Benvenuto in Instant Messaging</h1>
-<p>Conferma il tuo account andando su questo <a href=http://localhost:3001/api/v1/user/activate/${user._id}>link</a>`,
+<p>Conferma il tuo account andando su questo <a href="https://server-instant-messaging.herokuapp.com/api/v1/user/activate/${user._id}">link</a>`,
     });
 
     res.status(201)
