@@ -7,7 +7,7 @@ import Messages from './views/Messages';
 import Login from "./views/Login";
 import Register from './views/Register';
 
-const base_url = process.env.SERVERURI || 'http://localhost:3001';
+const base_url = 'https://server-instant-messaging.herokuapp.com';
 
 function App() {
 

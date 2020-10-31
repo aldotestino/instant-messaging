@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-const base_url = process.env.SERVERURI || 'http://localhost:3001';
+const base_url = 'https://server-instant-messaging.herokuapp.com';
 
 function Login({ user, setUser }) {
 
