@@ -3,13 +3,15 @@ import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+const base_url = process.env.SERVERURI || 'http://localhost:3001';
+
 function Login({ user, setUser }) {
 
   const { register, handleSubmit, errors, reset } = useForm();
 
   async function onSubmit(values) {
     try {
-      const response = await fetch('https://server-instant-messaging.herokuapp.com/api/v1/user/login', {
+      const response = await fetch(`${base_url}/api/v1/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -19,7 +21,6 @@ function Login({ user, setUser }) {
       reset();
       const usr = await response.json();
       if (usr.error) {
-        console.log(usr.error);
         alert(usr.error);
         return;
       }

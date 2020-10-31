@@ -3,6 +3,7 @@ type User = {
   username: string;
   password: string;
   photoUrl?: string;
+  confirmed?: boolean;
 }
 
 export default User;

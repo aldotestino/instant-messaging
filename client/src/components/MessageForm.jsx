@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+const base_url = process.env.SERVERURI || 'http://localhost:3001';
+
 function MessageForm({ user }) {
 
   const { register, handleSubmit, reset } = useForm();
@@ -15,7 +17,7 @@ function MessageForm({ user }) {
       photoUrl: user.photoUrl
     };
     reset();
-    await fetch('https://server-instant-messaging.herokuapp.com/api/v1/messages', {
+    await fetch(`${base_url}/api/v1/messages`, {
       method: 'POST',
       headers: {
         token: user.token,

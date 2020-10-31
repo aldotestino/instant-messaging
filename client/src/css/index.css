@@ -90,7 +90,6 @@ body {
 .chat .message .message-picture {
   height: 40px;
   border-radius: 50%;
-  margin-left: 10px;
   margin-right: 10px;
 }
 
@@ -260,6 +259,10 @@ body {
   padding: 20px;
   background-image: url("../assets/bg.svg");
   background-size: cover;
+}
+
+.login h1, .register h1 {
+  color: #333;
 }
 
 .login .form p .link, .register .form p .link {

@@ -1,16 +1,20 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-function Register({ user, setUser }) {
+const base_url = process.env.SERVERURI || 'http://localhost:3001';
+
+function Register({ user }) {
+
+  const history = useHistory();
 
   const { register, handleSubmit, errors, reset } = useForm();
 
+
   async function onSubmit(values) {
-    console.log(values);
     try {
-      const response = await fetch('https://server-instant-messaging.herokuapp.com/api/v1/user/register', {
+      const response = await fetch(`${base_url}/api/v1/user/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -20,11 +24,11 @@ function Register({ user, setUser }) {
       reset();
       const usr = await response.json();
       if (usr.error) {
-        console.log(usr.error);
         alert(usr.error);
         return;
       }
-      setUser(usr);
+      alert(usr.message);
+      history.push('/login');
     } catch (e) {
       console.log(e.message);
     }

@@ -7,6 +7,8 @@ import Messages from './views/Messages';
 import Login from "./views/Login";
 import Register from './views/Register';
 
+const base_url = process.env.SERVERURI || 'http://localhost:3001';
+
 function App() {
 
   const [messages, setMessages] = useState([]);
@@ -19,12 +21,16 @@ function App() {
 
   const getMessages = useCallback(async () => {
     try {
-      const response = await fetch('https://server-instant-messaging.herokuapp.com/api/v1/messages', {
+      const response = await fetch(`${base_url}/api/v1/messages`, {
         headers: {
           token: user.token
         }
       });
       const msgs = await response.json();
+      if (msgs.error) {
+        alert(msgs.error);
+        return;
+      }
       setMessages(msgs);
     } catch (e) {
       console.log(e.message);
@@ -32,7 +38,7 @@ function App() {
   }, [user]);
 
   async function connectToSocket() {
-    const io = socket_io('https://server-instant-messaging.herokuapp.com/');
+    const io = socket_io(base_url);
     io.on('message', data => {
       setMessages(prevMessages => [...prevMessages, data]);
     });
@@ -59,7 +65,7 @@ function App() {
             <Login user={user} setUser={setUser} />
           </Route>
           <Route exact path="/register">
-            <Register user={user} setUser={setUser} />
+            <Register user={user} />
           </Route>
           <Route exact path="/messages">
             <Messages messages={messages} user={user} setUser={setUser} setMessages={setMessages} />
