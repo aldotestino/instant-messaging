@@ -154,8 +154,6 @@ body {
 }
 
 .message-form .input-container {
-  height: 100%;
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -169,6 +167,7 @@ body {
   width: 100%;
   padding: 10px;
   color: #333;
+  height: 50px;
 }
 
 .message-form .input-container input:focus {
@@ -182,6 +181,7 @@ body {
   border: none;
   color: #fff;
   padding: 0 12px;
+  width: 50px;
 }
 
 .message-form .input-container button:hover {
@@ -238,6 +238,7 @@ body {
   outline: none;
   background-color: #2F89FC;
   text-decoration: none;
+  height: 40px;
   padding: 10px;
   color: #fff;
   display: block;
@@ -285,6 +286,7 @@ body {
 }
 
 .login .form .input-container, .register .form .input-container {
+  height: 50px;
   margin-bottom: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
