@@ -326,4 +326,34 @@ body {
 .login .form .error:focus-within, .register .form .error:focus-within {
   border-bottom-color: red;
 }
+
+.rpn-notification-holder {
+  width: 90%;
+  max-width: 400px;
+}
+
+.rpn-notification-holder .rpn-notification-card {
+  width: 100%;
+  -webkit-box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+          box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.rpn-notification-holder .rpn-notification-card .rpn-notification-card-top {
+  border-radius: 0;
+}
+
+.rpn-notification-holder .rpn-notification-card .rpn-notification-card-top span {
+  font-size: 18px;
+}
+
+.rpn-notification-holder .rpn-notification-card .rpn-notification-card-bottom {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 0;
+  background-color: #333;
+}
+
+.rpn-notification-holder .rpn-notification-card .rpn-notification-card-bottom span {
+  font-size: 18px;
+}
 /*# sourceMappingURL=index.css.map */

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const base_url = 'https://server-instant-messaging.herokuapp.com';
 
-function Login({ user, setUser }) {
+function Login({ user, setUser, pushNotification }) {
 
   const { register, handleSubmit, errors, reset } = useForm();
 
@@ -21,7 +21,7 @@ function Login({ user, setUser }) {
       reset();
       const usr = await response.json();
       if (usr.error) {
-        alert(usr.error);
+        pushNotification('Errore', usr.error);
         return;
       }
       setUser(usr);

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const base_url = 'https://server-instant-messaging.herokuapp.com';
 
-function Register({ user }) {
+function Register({ user, pushNotification }) {
 
   const history = useHistory();
 
@@ -24,10 +24,10 @@ function Register({ user }) {
       reset();
       const usr = await response.json();
       if (usr.error) {
-        alert(usr.error);
+        pushNotification('Errore', usr.error);
         return;
       }
-      alert(usr.message);
+      pushNotification('Conferma il tuo account', usr.message);
       history.push('/login');
     } catch (e) {
       console.log(e.message);

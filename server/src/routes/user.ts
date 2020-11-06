@@ -61,7 +61,7 @@ userRoute.post('/register', async (req, res, next) => {
 
     res.status(201)
     res.json({
-      message: `E' stata inviata una mail al tuo indirizzo: ${user.email}, per la conferma del account!`
+      message: `E' stata inviata una mail al tuo indirizzo: ${user.email}, per la conferma del tuo account!`
     });
   } catch (e) {
     next(e);

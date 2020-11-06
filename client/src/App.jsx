@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import addNotification, { Notifications } from 'react-push-notification';
 import socket_io from 'socket.io-client';
 
 import Home from './views/Home';
@@ -39,7 +40,6 @@ function App() {
     }
   }, [user]);
 
-
   useEffect(() => {
     if (user.token) {
       getMessages().then(() => {
@@ -56,18 +56,29 @@ function App() {
 
   }, [user, getMessages]);
 
+  function pushNotification(title, message) {
+    addNotification({
+      title,
+      message,
+      backgroundTop: '#2F89FC',
+      duration: 5000,
+      closeButton: <i className="fas fa-times"></i>
+    });
+  }
+
   return (
     <Router>
       <div>
+        <Notifications />
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
           <Route exact path="/login">
-            <Login user={user} setUser={setUser} />
+            <Login user={user} setUser={setUser} pushNotification={pushNotification} />
           </Route>
           <Route exact path="/register">
-            <Register user={user} />
+            <Register user={user} pushNotification={pushNotification} />
           </Route>
           <Route exact path="/messages">
             <Messages messages={messages} user={user} setUser={setUser} setMessages={setMessages} />
