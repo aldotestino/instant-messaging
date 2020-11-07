@@ -1,8 +1,7 @@
 import User from '../types/User';
-import userSchema from "./schemas/userSchema";
+import userSchema from './schemas/userSchema';
 import { users } from './connection';
 import bcrypt from 'bcrypt';
-import { UV_FS_O_FILEMAP } from 'constants';
 
 async function login(username: string, password: string) {
   try {

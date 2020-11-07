@@ -1,8 +1,14 @@
-import { Router } from "express";
-import Message from "../types/Message";
-import { addMessage, getMessages } from "../db/messages";
-import { validateToken } from "../db/users";
-import { io } from "../index";
+import { Router } from 'express';
+import { Server } from 'socket.io';
+import Message from '../types/Message';
+import { addMessage, getMessages } from '../db/messages';
+import { validateToken } from '../db/users';
+
+let io: Server;
+
+function setSocket(socket: Server) {
+  io = socket;
+}
 
 const messageRoute = Router();
 
@@ -39,3 +45,6 @@ messageRoute.post('/', async (req, res, next) => {
 });
 
 export default messageRoute;
+export {
+  setSocket
+};

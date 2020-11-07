@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { register, login, activateAccount } from "../db/users";
+import { Router } from 'express';
+import { register, login, activateAccount } from '../db/users';
 import nodemailer from 'nodemailer';
-import User from "../types/User";
+import User from '../types/User';
 
 const userRoute = Router();
 
@@ -41,7 +41,6 @@ userRoute.post('/register', async (req, res, next) => {
     const newUser: User = req.body;
     const user = await register(newUser);
 
-    /* SEND CONFERMATION EMAIL */
     let transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -51,9 +50,9 @@ userRoute.post('/register', async (req, res, next) => {
     });
 
     await transporter.sendMail({
-      from: '"Instant Messaging"', // sender address
-      to: user.email, // list of receivers
-      subject: "Conferma il tuo account",
+      from: 'Instant Messaging',
+      to: user.email,
+      subject: 'Conferma il tuo account',
       html: `
 <h1>Benvenuto in Instant Messaging</h1>
 <p>Conferma il tuo account andando su questo <a href="https://server-instant-messaging.herokuapp.com/api/v1/user/activate/${user._id}">link</a>`,

@@ -1,12 +1,12 @@
-import Message from "../types/Message";
+import Message from '../types/Message';
 import messageSchema from './schemas/messageSchema';
-import {messages} from "./connection";
+import { messages } from "./connection";
 
-async function addMessage(newMessage: Message)  {
+async function addMessage(newMessage: Message) {
   try {
     const validMessage = await messageSchema.validateAsync(newMessage);
     return await messages.insert(validMessage);
-  }catch (e) {
+  } catch (e) {
     throw new Error(e.message);
   }
 }
