@@ -13,8 +13,7 @@ function MessageForm({ user }) {
     const message = {
       content: values.message,
       date: isoDate,
-      username: user.username,
-      photoUrl: user.photoUrl
+      user_id: user.token
     };
     reset();
     await fetch(`${base_url}/api/v1/messages`, {
@@ -31,7 +30,7 @@ function MessageForm({ user }) {
     <div className="message-form">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-container">
-          <input name="message" autoComplete="off" placeholder="Scrivi un messaggio" ref={register({ required: true })}></input>
+          <input name="message" autoComplete="off" placeholder="Scrivi un messaggio" ref={register({ required: true })} />
           <button type="submit"><i className="fas fa-paper-plane fa-2x"></i></button>
         </div>
       </form>

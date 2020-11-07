@@ -1,8 +1,16 @@
+type Author = {
+  username: string;
+  photoUrl: string | undefined;
+}
+
 type Message = {
   content: string;
   date: string;
-  username: string;
-  photoUrl?: string;
+  user_id: string;
+  author?: Author;
 }
 
 export default Message;
+export {
+  Author
+};
