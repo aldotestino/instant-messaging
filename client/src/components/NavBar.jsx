@@ -1,5 +1,6 @@
 import React from 'react';
 import LogoutButton from './LogoutButton';
+import { Link } from 'react-router-dom';
 
 function NavBar({ setMessages, setUser, user }) {
 
@@ -9,8 +10,8 @@ function NavBar({ setMessages, setUser, user }) {
       <div className="right">
         <LogoutButton setUser={setUser} setMessages={setMessages}>Logout</LogoutButton>
         {user.photoUrl ?
-          <img className="profile-picture" src={user.photoUrl} alt="profilePicture"></img> :
-          <div className="no-profile-picture">{user.username[0]}</div>}
+          <Link to="/profile" className="profile-picture"><img src={user.photoUrl} alt="profilePicture"></img></Link> :
+          <Link to="/profile" className="no-profile-picture">{user.username[0]}</Link>}
       </div>
     </nav>
   );

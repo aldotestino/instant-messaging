@@ -11,7 +11,6 @@ function Register({ user, pushNotification }) {
 
   const { register, handleSubmit, errors, reset } = useForm();
 
-
   async function onSubmit(values) {
     try {
       const response = await fetch(`${base_url}/api/v1/user/register`, {

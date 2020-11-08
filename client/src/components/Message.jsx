@@ -12,7 +12,7 @@ function Message({ message, user }) {
       <div className="content">
         {mine ? null : <h3>{message.author.username}</h3>}
         <p>{message.content}</p>
-        <small>{`${fDate.toLocaleDateString()} - ${fDate.toLocaleTimeString()}`}</small>
+        <small>{fDate.toLocaleString()}</small>
       </div>
     </div>
   );

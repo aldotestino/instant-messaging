@@ -7,6 +7,7 @@ import Home from './views/Home';
 import Messages from './views/Messages';
 import Login from "./views/Login";
 import Register from './views/Register';
+import Profile from './views/Profile';
 
 const base_url = 'https://server-instant-messaging.herokuapp.com';
 
@@ -82,6 +83,9 @@ function App() {
           </Route>
           <Route exact path="/messages">
             <Messages messages={messages} user={user} setUser={setUser} setMessages={setMessages} />
+          </Route>
+          <Route exact path="/profile">
+            <Profile user={user} setUser={setUser} pushNotification={pushNotification} />
           </Route>
           <Route path="*">
             <Redirect to="/" />

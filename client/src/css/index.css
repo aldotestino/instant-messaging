@@ -46,9 +46,13 @@ body {
 }
 
 .nav-bar .right .profile-picture {
-  height: 40px;
-  border-radius: 50%;
   margin-left: 10px;
+  height: 40px;
+}
+
+.nav-bar .right .profile-picture img {
+  height: 100%;
+  border-radius: 50%;
 }
 
 .nav-bar .right .no-profile-picture {
@@ -62,6 +66,7 @@ body {
   width: 40px;
   border-radius: 50%;
   margin-left: 10px;
+  text-decoration: none;
 }
 
 .chat {
@@ -251,7 +256,21 @@ body {
   background-color: #046df4;
 }
 
-.login, .register {
+.profile {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile .profile-picture {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.login, .register, .profile {
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -267,25 +286,25 @@ body {
   background-size: cover;
 }
 
-.login h1, .register h1 {
+.login h1, .register h1, .profile h1 {
   color: #333;
 }
 
-.login .form p .link, .register .form p .link {
+.login .form p .link, .register .form p .link, .profile .form p .link {
   text-decoration: none;
   color: #2F89FC;
 }
 
-.login .form h1, .register .form h1 {
+.login .form h1, .register .form h1, .profile .form h1 {
   margin-bottom: 30px;
 }
 
-.login .form button, .register .form button {
+.login .form button, .register .form button, .profile .form button {
   width: 100%;
   margin-bottom: 10px;
 }
 
-.login .form .input-container, .register .form .input-container {
+.login .form .input-container, .register .form .input-container, .profile .form .input-container {
   height: 50px;
   margin-bottom: 20px;
   display: -webkit-box;
@@ -301,19 +320,19 @@ body {
   transition: all .2s ease;
 }
 
-.login .form .input-container:focus-within, .register .form .input-container:focus-within {
+.login .form .input-container:focus-within, .register .form .input-container:focus-within, .profile .form .input-container:focus-within {
   border-bottom-color: #2F89FC;
 }
 
-.login .form .input-container:focus-within i, .register .form .input-container:focus-within i {
+.login .form .input-container:focus-within i, .register .form .input-container:focus-within i, .profile .form .input-container:focus-within i {
   color: #333;
 }
 
-.login .form .input-container i, .register .form .input-container i {
+.login .form .input-container i, .register .form .input-container i, .profile .form .input-container i {
   color: #a8a8a8;
 }
 
-.login .form .input-container input, .register .form .input-container input {
+.login .form .input-container input, .register .form .input-container input, .profile .form .input-container input {
   width: 100%;
   border: none;
   outline: none;
@@ -323,7 +342,7 @@ body {
   color: #333;
 }
 
-.login .form .error:focus-within, .register .form .error:focus-within {
+.login .form .error:focus-within, .register .form .error:focus-within, .profile .form .error:focus-within {
   border-bottom-color: red;
 }
 

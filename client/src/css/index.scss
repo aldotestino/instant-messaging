@@ -30,9 +30,13 @@ body {
     align-items: center;
 
     .profile-picture {
-      height: 40px;
-      border-radius: 50%;
       margin-left: 10px;
+      height: 40px;
+
+      img {
+        height: 100%;
+        border-radius: 50%;
+      }
     }
 
     .no-profile-picture {
@@ -46,6 +50,7 @@ body {
       width: 40px;
       border-radius: 50%;
       margin-left: 10px;
+      text-decoration: none;
     }
   }
 }
@@ -212,8 +217,18 @@ body {
   }
 }
 
+.profile {
+  flex-direction: column;
 
-.login, .register {
+  .profile-picture {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin-bottom: 30px;
+  }
+}
+
+.login, .register, .profile {
   height: 100vh;
   display: flex;
   justify-content: center;
