@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, activateAccount, update } from '../db/users';
+import { register, login, activateAccount, update, updatePassword } from '../db/users';
 import nodemailer from 'nodemailer';
 import User from '../types/User';
 
@@ -78,6 +78,21 @@ userRoute.patch('/update', async (req, res, next) => {
       username: updatedUser.username,
       photoUrl: updatedUser.photoUrl
     });
+  } catch (e) {
+    next(e);
+  }
+});
+
+userRoute.patch('/update/password', async (req, res, next) => {
+  try {
+    const { token } = req.headers;
+    const { password, newPassword } = req.body;
+    if (!password || !newPassword) {
+      throw new Error('Il campo "passowrd" o "nuova password" non è definito');
+    }
+    const response = await updatePassword(token as string, password, newPassword);
+    res.status(200);
+    res.json(response);
   } catch (e) {
     next(e);
   }

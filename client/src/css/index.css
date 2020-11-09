@@ -272,6 +272,10 @@ body {
   margin-bottom: 30px;
 }
 
+.password-change .button:last-child {
+  margin-bottom: 0;
+}
+
 .login, .register, .profile {
   height: 100vh;
   display: -webkit-box;
@@ -290,6 +294,10 @@ body {
 
 .login h1, .register h1, .profile h1 {
   color: #333;
+}
+
+.login .form #back, .register .form #back, .profile .form #back {
+  margin-bottom: 0;
 }
 
 .login .form p .link, .register .form p .link, .profile .form p .link {

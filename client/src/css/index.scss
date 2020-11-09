@@ -230,6 +230,14 @@ body {
   }
 }
 
+.password-change {
+  .button {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .login, .register, .profile {
   height: 100vh;
   display: flex;
@@ -244,6 +252,10 @@ body {
   }
 
   .form {
+
+    #back {
+      margin-bottom: 0;
+    }
 
     p {
       .link {

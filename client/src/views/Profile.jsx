@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useHistory, Redirect } from 'react-router-dom'
+
+import PasswordChange from '../components/PasswordChange';
 
 const base_url = 'https://server-instant-messaging.herokuapp.com';
 
 function Profile({ user, setUser, pushNotification }) {
+
+  const [modal, setModal] = useState(false);
+
+  function toggleModal() {
+    setModal(prev => !prev);
+  }
 
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -45,25 +53,29 @@ function Profile({ user, setUser, pushNotification }) {
         <img className="profile-picture" src={user.photoUrl} alt="profilePicture"></img> :
         null}
 
-      <div className="form">
-        <h1>Profilo</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      {modal ? <PasswordChange user={user} onClose={toggleModal} pushNotification={pushNotification} /> :
+        <div className="form">
+          <h1>Profilo</h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
 
-          <div className={errors.newUsername ? 'input-container error' : 'input-container'}>
-            <i className="fas fa-user fa-lg"></i>
-            <input type="text" name="newUsername" ref={register({ required: true })} placeholder="Username" />
-          </div>
+            <div className={errors.newUsername ? 'input-container error' : 'input-container'}>
+              <i className="fas fa-user fa-lg"></i>
+              <input type="text" name="newUsername" ref={register({ required: true })} placeholder="Username" />
+            </div>
 
-          <div className="input-container">
-            <i className="fas fa-camera fa-lg"></i>
-            <input type="text" name="newPhotoUrl" ref={register} placeholder="Foto" />
-          </div>
+            <div className="input-container">
+              <i className="fas fa-camera fa-lg"></i>
+              <input type="text" name="newPhotoUrl" ref={register} placeholder="Foto" />
+            </div>
 
-          <button className="button" type="submit">Aggiorna</button>
-          <Link className="button" to="/login">Indietro</Link>
+            <button className="button" type="submit">Aggiorna</button>
+            <button className="button" type="button" onClick={toggleModal}>Cambia Password</button>
+            <Link className="button" to="/login">Indietro</Link>
 
-        </form>
-      </div>
+          </form>
+        </div>
+      }
+
     </div>
   );
 }

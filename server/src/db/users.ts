@@ -57,6 +57,10 @@ async function update(token: string, newUsername: string, newPhotoUrl: string) {
   const usernameValidation = Joi.string().min(2).max(20).required();
   const photoUrlValidation = Joi.string().uri().allow('');
   try {
+    const can_user_update = await validateToken(token);
+    if (!can_user_update) {
+      throw new Error('Non hai ancora confermato il tuo account!');
+    }
     const validatedNewPhotoUrl = await photoUrlValidation.validateAsync(newPhotoUrl);
     const validatedNewUsername = await usernameValidation.validateAsync(newUsername);
     const updatedUser = await users.findOneAndUpdate({ _id: token }, { $set: { username: validatedNewUsername, photoUrl: validatedNewPhotoUrl } });
@@ -72,10 +76,40 @@ async function update(token: string, newUsername: string, newPhotoUrl: string) {
   }
 }
 
+async function updatePassword(token: string, password: string, newPassword: string) {
+  const passwordValidation = Joi.string().required().min(5).required();
+  try {
+    const user = await users.findOne({ _id: token });
+    if (!user) {
+      throw new Error('Account inesistente!');
+    }
+    if (!user?.confirmed) {
+      throw new Error('Non hai ancora confermato il tuo account!');
+    }
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw new Error('Password errata!');
+    }
+    const validatedNewPassword = await passwordValidation.validateAsync(newPassword);
+    const newHashedPassword = await bcrypt.hash(validatedNewPassword, 10);
+    await users.findOneAndUpdate({ _id: token }, {
+      $set: {
+        password: newHashedPassword
+      }
+    });
+    return {
+      message: 'Cambio password effettuato con successo!'
+    }
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+
 export {
   register,
   login,
   update,
+  updatePassword,
   validateToken,
   activateAccount
 };
