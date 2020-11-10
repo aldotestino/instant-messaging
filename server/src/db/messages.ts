@@ -5,7 +5,8 @@ import { join, joinOne } from "./hooks/messageHook";
 
 async function addMessage(newMessage: Message) {
   try {
-    const validMessage = await messageSchema.validateAsync(newMessage);
+    const validMessage: Message = await messageSchema.validateAsync(newMessage);
+    validMessage.date = new Date().toISOString();
     const insertedMessage = await messages.insert(validMessage);
     return await joinOne(insertedMessage);
   } catch (e) {

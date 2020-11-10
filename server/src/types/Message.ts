@@ -5,7 +5,7 @@ type Author = {
 
 type Message = {
   content: string;
-  date: string;
+  date?: string;
   user_id: string;
   author?: Author;
 }

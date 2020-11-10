@@ -8,11 +8,8 @@ function MessageForm({ user }) {
   const { register, handleSubmit, reset } = useForm();
 
   async function onSubmit(values) {
-    const d = new Date()
-    const isoDate = d.toISOString();
     const message = {
       content: values.message,
-      date: isoDate,
       user_id: user._id
     };
     reset();
