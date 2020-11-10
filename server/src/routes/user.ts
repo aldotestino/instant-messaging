@@ -15,7 +15,8 @@ userRoute.post('/login', async (req, res, next) => {
     const user = await login(username, password);
     res.status(200);
     res.json({
-      token: user._id,
+      _id: user._id,
+      token: user.token,
       username: user.username,
       photoUrl: user.photoUrl
     });
@@ -55,7 +56,7 @@ userRoute.post('/register', async (req, res, next) => {
       subject: 'Conferma il tuo account',
       html: `
 <h1>Benvenuto in Instant Messaging</h1>
-<p>Conferma il tuo account andando su questo <a href="https://server-instant-messaging.herokuapp.com/api/v1/user/activate/${user._id}">link</a>`,
+<p>Conferma il tuo account andando su questo <a href="https://server-instant-messaging.herokuapp.com/api/v1/user/activate/${user.token}">link</a>`,
     });
 
     res.status(201)
@@ -70,11 +71,15 @@ userRoute.post('/register', async (req, res, next) => {
 userRoute.patch('/update', async (req, res, next) => {
   try {
     const { token } = req.headers;
-    const { newUsername, newPhotoUrl } = req.body;
+    const { newUsername, newPhotoUrl }: { newUsername: string, newPhotoUrl: string } = req.body;
+    if (!newUsername) {
+      throw new Error('Il campo "username" non è definito');
+    }
     const updatedUser = await update(token as string, newUsername, newPhotoUrl);
     res.status(200);
     res.json({
-      token: updatedUser._id,
+      _id: updatedUser._id,
+      token: updatedUser.token,
       username: updatedUser.username,
       photoUrl: updatedUser.photoUrl
     });
@@ -86,7 +91,7 @@ userRoute.patch('/update', async (req, res, next) => {
 userRoute.patch('/update/password', async (req, res, next) => {
   try {
     const { token } = req.headers;
-    const { password, newPassword } = req.body;
+    const { password, newPassword }: { password: string, newPassword: string } = req.body;
     if (!password || !newPassword) {
       throw new Error('Il campo "passowrd" o "nuova password" non è definito');
     }

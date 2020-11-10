@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Message({ message, user }) {
-  const mine = message.user_id === user.token;
+  const mine = message.user_id === user._id;
   const fDate = new Date(message.date);
 
   return (

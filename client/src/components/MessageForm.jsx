@@ -13,7 +13,7 @@ function MessageForm({ user }) {
     const message = {
       content: values.message,
       date: isoDate,
-      user_id: user.token
+      user_id: user._id
     };
     reset();
     await fetch(`${base_url}/api/v1/messages`, {

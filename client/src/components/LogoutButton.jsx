@@ -9,6 +9,7 @@ function Logout({ setMessages, setUser, children }) {
     setUser({
       username: '',
       token: '',
+      _id: '',
       photoUrl: ''
     });
     history.push('/');

@@ -8,7 +8,7 @@ function PasswordChange({ user, onClose, pushNotification }) {
 
   const history = useHistory();
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
 
   async function onSubmit(values) {
     try {
@@ -23,6 +23,7 @@ function PasswordChange({ user, onClose, pushNotification }) {
       const passwordChange = await response.json();
       if (passwordChange.error) {
         pushNotification('Errore', passwordChange.error);
+        reset();
         return;
       }
       pushNotification('Cambio password', passwordChange.message);

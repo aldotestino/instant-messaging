@@ -4,6 +4,7 @@ type User = {
   password: string;
   photoUrl?: string;
   confirmed?: boolean;
+  token?: string;
 }
 
 export default User;

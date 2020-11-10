@@ -6,8 +6,9 @@ import Message from '../types/Message'
 const db = monk(connectionString);
 
 const users = db.get<User>('users');
-users.createIndex('username', {unique: true});
-users.createIndex('email', {unique: true});
+users.createIndex('username', { unique: true });
+users.createIndex('email', { unique: true });
+users.createIndex('token', { unique: true });
 
 const messages = db.get<Message>('messages');
 

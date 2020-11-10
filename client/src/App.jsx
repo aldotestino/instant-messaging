@@ -20,6 +20,7 @@ function App() {
   const [user, setUser] = useState({
     username: '',
     token: '',
+    _id: '',
     photoUrl: ''
   });
 
