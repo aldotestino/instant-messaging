@@ -31,20 +31,20 @@ function Login({ user, setUser, pushNotification }) {
   }
 
   return (
-    <div className="login">
+    <div className="screen">
       {user.token && <Redirect to={{ pathname: '/messages' }} />}
-      <div className="form">
-        <h1>Login</h1>
+      <div className="container">
+        <h1 className="title">Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
 
           <div className={errors.username ? 'input-container error' : 'input-container'}>
             <i className="fas fa-user fa-lg"></i>
-            <input type="text" name="username" ref={register({ required: true })} placeholder="Username" />
+            <input className="input" type="text" name="username" ref={register({ required: true })} placeholder="Username" />
           </div>
 
           <div className={errors.password ? 'input-container error' : 'input-container'}>
             <i className="fas fa-key fa-lg"></i>
-            <input type="password" name="password" ref={register({ required: true })} placeholder="Password" />
+            <input className="input" type="password" name="password" ref={register({ required: true })} placeholder="Password" />
           </div>
 
           <button className="button" type="submit">Login</button>

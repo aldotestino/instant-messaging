@@ -24,14 +24,10 @@ function MessageForm({ user }) {
   }
 
   return (
-    <div className="message-form">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="input-container">
-          <input name="message" autoComplete="off" placeholder="Scrivi un messaggio" ref={register({ required: true })} />
-          <button type="submit"><i className="fas fa-paper-plane fa-2x"></i></button>
-        </div>
-      </form>
-    </div>
+    <form className="input-container" onSubmit={handleSubmit(onSubmit)}>
+      <input className="input" name="message" autoComplete="off" placeholder="Scrivi un messaggio" ref={register({ required: true })} />
+      <button className="button" type="submit"><i className="fas fa-arrow-up fa-2x"></i></button>
+    </form>
   );
 }
 

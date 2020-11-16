@@ -34,31 +34,31 @@ function Register({ user, pushNotification }) {
   }
 
   return (
-    <div className="register">
+    <div className="screen">
       {user.token && <Redirect to={{ pathname: '/messages' }} />}
-      <div className="form">
-        <h1>Registrati</h1>
+      <div className="container">
+        <h1 className="title">Registrati</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
 
           <div className={errors.email ? 'input-container error' : 'input-container'}>
             <i className="fas fa-envelope fa-lg"></i>
-            <input type="text" name="email" ref={register({ required: true })} placeholder="Email" />
+            <input className="input" type="text" name="email" ref={register({ required: true })} placeholder="Email" />
           </div>
 
           <div className={errors.username ? 'input-container error' : 'input-container'}>
             <i className="fas fa-user fa-lg"></i>
-            <input type="text" name="username" ref={register({ required: true })} placeholder="Username" />
+            <input className="input" type="text" name="username" ref={register({ required: true })} placeholder="Username" />
           </div>
 
           <div className={errors.password ? 'input-container error' : 'input-container'}>
             <i className="fas fa-key fa-lg"></i>
-            <input type="password" name="password" ref={register({ required: true })} placeholder="Password" />
+            <input className="input" type="password" name="password" ref={register({ required: true })} placeholder="Password" />
           </div>
 
           <div className="input-container">
             <i className="fas fa-camera fa-lg"></i>
-            <input type="text" name="photoUrl" ref={register} placeholder="Foto" />
+            <input className="input" type="text" name="photoUrl" ref={register} placeholder="Foto" />
           </div>
 
           <button className="button" type="submit">Registrati</button>

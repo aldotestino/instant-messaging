@@ -6,11 +6,161 @@
 }
 
 body {
-  height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.nav-bar {
+.screen {
+  background-image: url("../assets/bg.svg");
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.screen .container .image-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 10px;
+}
+
+.screen .container .image-container .image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.screen .container .title {
+  margin-bottom: 20px;
+  color: #333333;
+  font-size: 42px;
+}
+
+.screen .container .button {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  display: block;
+  border-radius: 10px;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background-color: #1388F5;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.screen .container .button:hover {
+  background-color: #44a1f7;
+}
+
+.screen .container .button:active {
+  background-color: #44a1f7;
+}
+
+.screen .container .button:last-child {
+  margin-bottom: 0;
+}
+
+.screen .container form .input-container {
+  width: 300px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 2px solid #E5E5E5;
+  background-color: #E5E5E5;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.screen .container form .input-container i {
+  color: #b1b1b1;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.screen .container form .input-container .input {
+  font-size: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  margin-left: 10px;
+}
+
+.screen .container form .input-container .input::-webkit-input-placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.screen .container form .input-container .input:-ms-input-placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.screen .container form .input-container .input::-ms-input-placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.screen .container form .input-container .input::placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.screen .container form .input-container:focus-within {
+  border-color: #1388F5;
+}
+
+.screen .container form .input-container:focus-within i {
+  color: #333333;
+}
+
+.screen .container form .error:focus-within {
+  border-color: #E06C75;
+}
+
+.screen .container p {
+  font-size: 15px;
+  color: #333333;
+  margin-top: 10px;
+}
+
+.screen .container p .link {
+  text-decoration: none;
+  color: #1388F5;
+}
+
+.messages .nav-bar {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -32,47 +182,45 @@ body {
           backdrop-filter: blur(5px);
 }
 
-.nav-bar .title {
+.messages .nav-bar .title {
   color: #fff;
 }
 
-.nav-bar .right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.nav-bar .right .profile-picture {
-  margin-left: 10px;
+.messages .picture {
   height: 40px;
+  min-height: 40px;
   width: 40px;
+  min-width: 40px;
+  border-radius: 50%;
 }
 
-.nav-bar .right .profile-picture img {
+.messages .picture img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   height: 100%;
   width: 100%;
   border-radius: 50%;
 }
 
-.nav-bar .right .no-profile-picture {
+.messages .text {
+  background-color: #E5E5E5;
+  border-radius: 50%;
+  text-decoration: none;
   text-align: center;
   vertical-align: middle;
-  line-height: 40px;
-  font-size: 30px;
-  color: #333;
-  background-color: #dcdcdc;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  margin-left: 10px;
-  text-decoration: none;
 }
 
-.chat {
-  margin-bottom: 50px;
+.messages .text p {
+  font-size: 30px;
+  color: #333333;
+  text-transform: capitalize;
+  line-height: 40px;
+}
+
+.messages .chat {
+  margin-bottom: 60px;
   padding: 10px 10px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -83,277 +231,141 @@ body {
           flex-direction: column;
 }
 
-.chat .message {
+.messages .chat .message {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 10px;
 }
 
-.chat .message:last-child {
+.messages .chat .message:last-child {
   margin-bottom: 0;
 }
 
-.chat .message .message-picture {
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
+.messages .chat .message .picture {
+  margin-right: 5px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 
-.chat .message .no-message-picture {
-  background-color: #dcdcdc;
-  min-width: 40px;
-  min-height: 40px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 30px;
-  color: #333;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 40px;
-  margin-right: 10px;
+.messages .chat .message .text p {
+  color: #fff;
 }
 
-.chat .message .content {
+.messages .chat .message .content {
+  -webkit-box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+          box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
   color: #fff;
   padding: 10px;
-  background-color: #2F89FC;
+  background-color: #1388F5;
   border-radius: 10px 10px 10px 0;
   max-width: 300px;
 }
 
-.chat .message .content p {
+.messages .chat .message .content p {
   margin: 5px 0;
   font-size: 18px;
   word-break: break-all;
 }
 
-.chat .mine {
+.messages .chat .mine {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-.chat .mine .content {
+.messages .chat .mine .content {
   background-color: #333;
   border-radius: 10px 10px 0 10px;
 }
 
-.chat .mine .content h3 {
+.messages .chat .mine .content h3 {
   text-align: end;
 }
 
-.chat .mine .content small {
+.messages .chat .mine .content small {
   text-align: end;
 }
 
-.chat .mine .content p {
+.messages .chat .mine .content p {
   margin-top: 0;
 }
 
-.message-form {
+.messages .input-container {
   position: fixed;
-  bottom: 0px;
-  width: 100%;
-}
-
-.message-form .input-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.message-form .input-container input {
-  border: none;
-  outline: none;
+  bottom: 0;
   background-color: #fff;
-  font-size: 26px;
   width: 100%;
-  padding: 10px;
-  color: #333;
-  height: 50px;
+  height: 60px;
+  padding: 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.message-form .input-container input:focus {
-  background-color: #f3f3f3;
-}
-
-.message-form .input-container button {
+.messages .input-container .input {
+  font-size: 24px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid #E5E5E5;
   outline: none;
+  background-color: #E5E5E5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.messages .input-container .input:focus {
+  border-color: #1388F5;
+}
+
+.messages .input-container .input::-webkit-input-placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.messages .input-container .input:-ms-input-placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.messages .input-container .input::-ms-input-placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.messages .input-container .input::placeholder {
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.messages .input-container .button {
+  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
-  background-color: #2F89FC;
-  border: none;
-  color: #fff;
-  padding: 0 12px;
-  width: 50px;
-}
-
-.message-form .input-container button:hover {
-  background-color: #046df4;
-}
-
-.home {
-  height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  background-image: url("../assets/bg.svg");
-  background-size: cover;
-}
-
-.home .container .logo {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-bottom: 30px;
-}
-
-.home .container .logo img {
-  height: 100px;
-}
-
-.home .container .title {
-  color: #333;
-  margin-bottom: 30px;
-}
-
-.home .container .button {
-  width: 100%;
-}
-
-.home .container #register {
-  margin-bottom: 10px;
-}
-
-.button {
   border: none;
   outline: none;
-  background-color: #2F89FC;
-  text-decoration: none;
-  height: 40px;
-  padding: 10px;
+  background-color: #1388F5;
+  width: 70px;
+  height: 52px;
+  margin-left: 10px;
+  border-radius: 10px;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.messages .input-container .button i {
   color: #fff;
-  display: block;
-  cursor: pointer;
-  font-size: 18px;
-  text-align: center;
 }
 
-.button:hover {
-  background-color: #046df4;
+.messages .input-container .button:hover {
+  background-color: #44a1f7;
 }
 
-.profile {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.profile .profile-picture {
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  margin-bottom: 30px;
-}
-
-.password-change .button:last-child {
-  margin-bottom: 0;
-}
-
-.login, .register, .profile {
-  height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 20px;
-  background-image: url("../assets/bg.svg");
-  background-size: cover;
-}
-
-.login h1, .register h1, .profile h1 {
-  color: #333;
-}
-
-.login .form #back, .register .form #back, .profile .form #back {
-  margin-bottom: 0;
-}
-
-.login .form p .link, .register .form p .link, .profile .form p .link {
-  text-decoration: none;
-  color: #2F89FC;
-}
-
-.login .form h1, .register .form h1, .profile .form h1 {
-  margin-bottom: 30px;
-}
-
-.login .form button, .register .form button, .profile .form button {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.login .form .input-container, .register .form .input-container, .profile .form .input-container {
-  height: 50px;
-  margin-bottom: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #F3F3F3;
-  padding: 0 0 0 10px;
-  border-bottom: 3px solid #f3f3f3;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-}
-
-.login .form .input-container:focus-within, .register .form .input-container:focus-within, .profile .form .input-container:focus-within {
-  border-bottom-color: #2F89FC;
-}
-
-.login .form .input-container:focus-within i, .register .form .input-container:focus-within i, .profile .form .input-container:focus-within i {
-  color: #333;
-}
-
-.login .form .input-container i, .register .form .input-container i, .profile .form .input-container i {
-  color: #a8a8a8;
-}
-
-.login .form .input-container input, .register .form .input-container input, .profile .form .input-container input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 26px;
-  padding: 10px 10px 7px 10px;
-  color: #333;
-}
-
-.login .form .error:focus-within, .register .form .error:focus-within, .profile .form .error:focus-within {
-  border-bottom-color: red;
+.messages .input-container .button:active {
+  background-color: #44a1f7;
 }
 
 .rpn-notification-holder {
@@ -363,12 +375,13 @@ body {
 
 .rpn-notification-holder .rpn-notification-card {
   width: 100%;
+  border-radius: 10px;
   -webkit-box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
           box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .rpn-notification-holder .rpn-notification-card .rpn-notification-card-top {
-  border-radius: 0;
+  border-radius: 10px 10px 0 0;
 }
 
 .rpn-notification-holder .rpn-notification-card .rpn-notification-card-top span {
@@ -378,8 +391,8 @@ body {
 .rpn-notification-holder .rpn-notification-card .rpn-notification-card-bottom {
   -webkit-box-shadow: none;
           box-shadow: none;
-  border-radius: 0;
-  background-color: #333;
+  border-radius: 0 0 10px 10px;
+  background-color: #333333;
 }
 
 .rpn-notification-holder .rpn-notification-card .rpn-notification-card-bottom span {

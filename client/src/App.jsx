@@ -83,10 +83,10 @@ function App() {
             <Register user={user} pushNotification={pushNotification} />
           </Route>
           <Route exact path="/messages">
-            <Messages messages={messages} user={user} setUser={setUser} setMessages={setMessages} />
+            <Messages messages={messages} user={user} setUser={setUser} />
           </Route>
           <Route exact path="/profile">
-            <Profile user={user} setUser={setUser} pushNotification={pushNotification} />
+            <Profile user={user} setUser={setUser} pushNotification={pushNotification} setMessages={setMessages} />
           </Route>
           <Route path="*">
             <Redirect to="/" />

@@ -34,22 +34,22 @@ function PasswordChange({ user, onClose, pushNotification }) {
   }
 
   return (
-    <div className="form" >
-      <h1>Cambia password</h1>
+    <div className="container" >
+      <h1 className="title">Password</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
 
         <div className={errors.password ? 'input-container error' : 'input-container'}>
           <i className="fas fa-key fa-lg"></i>
-          <input type="password" name="password" ref={register({ required: true })} placeholder="Password" />
+          <input className="input" type="password" name="password" ref={register({ required: true })} placeholder="Password" />
         </div>
 
         <div className={errors.newPassword ? 'input-container error' : 'input-container'}>
           <i className="fas fa-key fa-lg"></i>
-          <input type="password" name="newPassword" ref={register({ required: true })} placeholder="Nuova password" />
+          <input className="input" type="password" name="newPassword" ref={register({ required: true })} placeholder="Nuova password" />
         </div>
 
         <button className="button" type="submit">Aggiorna</button>
-        <button className="button" id="back" type="button" onClick={onClose}>Indietro</button>
+        <button className="button" type="button" onClick={onClose}>Indietro</button>
       </form>
     </div>
   );
