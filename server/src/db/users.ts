@@ -52,14 +52,14 @@ async function activateAccount(token: string) {
 
 async function validateToken(token: string) {
   const user = await users.findOne({ token });
-  return user?.confirmed;
+  return [user?.confirmed, user?._id];
 }
 
 async function update(token: string, newUsername: string, newPhotoUrl: string) {
   const usernameValidation = Joi.string().min(2).max(20).required();
   const photoUrlValidation = Joi.string().uri().allow('');
   try {
-    const can_user_update = await validateToken(token);
+    const [can_user_update] = await validateToken(token);
     if (!can_user_update) {
       throw new Error('Non hai ancora confermato il tuo account!');
     }

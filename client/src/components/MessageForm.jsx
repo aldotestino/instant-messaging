@@ -10,17 +10,24 @@ function MessageForm({ user }) {
   async function onSubmit(values) {
     const message = {
       content: values.message,
-      user_id: user._id
     };
     reset();
-    await fetch(`${base_url}/api/v1/messages`, {
-      method: 'POST',
-      headers: {
-        token: user.token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(message)
-    });
+    try {
+      const response = await fetch(`${base_url}/api/v1/messages`, {
+        method: 'POST',
+        headers: {
+          token: user.token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message)
+      });
+      const { error } = await response.json();
+      if (error) {
+        console.log(error);
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 
   return (

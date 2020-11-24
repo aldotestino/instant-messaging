@@ -15,7 +15,7 @@ const messageRoute = Router();
 messageRoute.get('/', async (req, res, next) => {
   try {
     const { token } = req.headers;
-    const can_user_read = await validateToken(token as string);
+    const [can_user_read] = await validateToken(token as string);
     if (!can_user_read) {
       throw new Error('Invalid token');
     }
@@ -30,10 +30,11 @@ messageRoute.get('/', async (req, res, next) => {
 messageRoute.post('/', async (req, res, next) => {
   try {
     const { token } = req.headers;
-    const can_user_post = await validateToken(token as string);
+    const [can_user_post, user_id] = await validateToken(token as string);
     if (!can_user_post) {
       throw new Error('Invalid token');
     }
+    req.body.user_id = String(user_id);
     const newMessage: Message = req.body;
     const insertedMessage = await addMessage(newMessage);
     io.sockets.emit('message', insertedMessage);
