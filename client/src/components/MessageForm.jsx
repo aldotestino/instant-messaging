@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-
-const base_url = 'https://server-instant-messaging.herokuapp.com';
+import { api } from '../lib/api';
 
 function MessageForm({ user }) {
 
@@ -12,21 +11,9 @@ function MessageForm({ user }) {
       content: values.message,
     };
     reset();
-    try {
-      const response = await fetch(`${base_url}/api/v1/messages`, {
-        method: 'POST',
-        headers: {
-          token: user.token,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(message)
-      });
-      const { error } = await response.json();
-      if (error) {
-        console.log(error);
-      }
-    } catch (e) {
-      console.log(e.message);
+    const { error } = await api({endpoint: 'messages', method: 'POST', values: message, token: user.token});
+    if (error) {
+      console.log(error);
     }
   }
 

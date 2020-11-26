@@ -2,32 +2,20 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-const base_url = 'https://server-instant-messaging.herokuapp.com';
+import { api } from "../lib/api";
 
 function Login({ user, setUser, pushNotification }) {
 
   const { register, handleSubmit, errors, reset } = useForm();
 
   async function onSubmit(values) {
-    try {
-      const response = await fetch(`${base_url}/api/v1/user/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
-      });
+      const usr = await api({endpoint: 'user/login', method: 'POST', values});
       reset();
-      const usr = await response.json();
       if (usr.error) {
         pushNotification('Errore', usr.error);
         return;
       }
       setUser(usr);
-    } catch (e) {
-      console.log(e.message);
-    }
   }
 
   return (

@@ -29,8 +29,11 @@ userRoute.get('/activate/:token', async (req, res, next) => {
   try {
     const { token } = req.params;
     const confirmed = await activateAccount(token);
+
+    const client_url = process.env.CLIENT_URL || 'http://localhost:3000';
+
     if (confirmed) {
-      res.redirect('https://instant-messaging.vercel.app/login');
+      res.redirect(`${client_url}/login`);
     }
   } catch (e) {
     next(e);
@@ -41,6 +44,8 @@ userRoute.post('/register', async (req, res, next) => {
   try {
     const newUser: User = req.body;
     const user = await register(newUser);
+
+    const server_url = process.env.SERVER_URL || 'http://localhost:3001';
 
     let transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -56,7 +61,7 @@ userRoute.post('/register', async (req, res, next) => {
       subject: 'Conferma il tuo account',
       html: `
 <h1>Benvenuto in Instant Messaging</h1>
-<p>Conferma il tuo account andando su questo <a href="https://server-instant-messaging.herokuapp.com/api/v1/user/activate/${user.token}">link</a>`,
+<p>Conferma il tuo account andando su questo <a href="${server_url}/api/v1/user/activate/${user.token}">link</a>`,
     });
 
     res.status(201)

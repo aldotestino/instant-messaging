@@ -8,6 +8,7 @@ import Messages from './views/Messages';
 import Login from "./views/Login";
 import Register from './views/Register';
 import Profile from './views/Profile';
+import { api } from './lib/api';
 
 const base_url = 'https://server-instant-messaging.herokuapp.com';
 
@@ -25,21 +26,12 @@ function App() {
   });
 
   const getMessages = useCallback(async () => {
-    try {
-      const response = await fetch(`${base_url}/api/v1/messages`, {
-        headers: {
-          token: user.token
-        }
-      });
-      const msgs = await response.json();
-      if (msgs.error) {
-        alert(msgs.error);
-        return;
-      }
-      setMessages(msgs);
-    } catch (e) {
-      console.log(e.message);
+    const msgs = await api({endpoint: 'messages', method: 'GET', token: user.token});
+    if (msgs.error) {
+      alert(msgs.error);
+      return;
     }
+    setMessages(msgs);
   }, [user]);
 
   useEffect(() => {

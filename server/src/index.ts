@@ -4,6 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import userRoute from './routes/user';
 import messageRoute, { setSocket } from './routes/message';
+require('dotenv').config();
 
 const app = express();
 
@@ -22,9 +23,8 @@ app.use('/api/v1/user', userRoute);
 app.use('/api/v1/messages', messageRoute);
 
 app.get('/', (_req, res) => {
-  res.json({
-    message: 'Instant Messaging Server'
-  });
+  const client_url = process.env.CLIENT_URL || 'http://localhost:3000';
+  res.redirect(client_url);
 });
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {

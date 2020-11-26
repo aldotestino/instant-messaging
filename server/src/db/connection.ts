@@ -1,8 +1,8 @@
 import monk from 'monk'
-const connectionString = process.env.MONGOURI || 'localhost/instant-messaging';
 import User from '../types/User';
 import Message from '../types/Message'
 
+const connectionString = process.env.MONGO_URI || 'localhost/instant-messaging';
 const db = monk(connectionString);
 
 const users = db.get<User>('users');

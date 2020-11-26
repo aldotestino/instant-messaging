@@ -1,8 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom'
-
-const base_url = 'https://server-instant-messaging.herokuapp.com';
+import { api } from "../lib/api";
 
 function PasswordChange({ user, onClose, pushNotification }) {
 
@@ -11,26 +10,14 @@ function PasswordChange({ user, onClose, pushNotification }) {
   const { register, handleSubmit, errors, reset } = useForm();
 
   async function onSubmit(values) {
-    try {
-      const response = await fetch(`${base_url}/api/v1/user/update/password`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'token': user.token
-        },
-        body: JSON.stringify(values)
-      });
-      const passwordChange = await response.json();
-      if (passwordChange.error) {
-        pushNotification('Errore', passwordChange.error);
-        reset();
-        return;
-      }
-      pushNotification('Cambio password', passwordChange.message);
-      history.push('/messages');
-    } catch (e) {
-      console.log(e.message);
+    const passwordChange = await api({endpoint: 'user/update/password', method: 'PATCH', values, token: user.token});
+    if (passwordChange.error) {
+      pushNotification('Errore', passwordChange.error);
+      reset();
+      return;
     }
+    pushNotification('Cambio password', passwordChange.message);
+    history.push('/messages');
   }
 
   return (

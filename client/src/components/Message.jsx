@@ -1,5 +1,5 @@
 import React from 'react';
-import colors from './colors';
+import colors from '../lib/colors';
 
 function Message({ message, user }) {
   const mine = message.user_id === user._id;

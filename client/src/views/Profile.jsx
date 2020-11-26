@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useHistory, Redirect } from 'react-router-dom'
 import LogoutButton from '../components/LogoutButton';
 import PasswordChange from '../components/PasswordChange';
-
-const base_url = 'https://server-instant-messaging.herokuapp.com';
+import { api } from "../lib/api";
 
 function Profile({ user, setUser, pushNotification, setMessages }) {
 
@@ -24,25 +23,13 @@ function Profile({ user, setUser, pushNotification, setMessages }) {
   const history = useHistory();
 
   async function onSubmit(values) {
-    try {
-      const response = await fetch(`${base_url}/api/v1/user/update`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'token': user.token
-        },
-        body: JSON.stringify(values)
-      });
-      const updatedUser = await response.json();
-      if (updatedUser.error) {
-        pushNotification('Errore', updatedUser.error);
-        return;
-      }
-      setUser(updatedUser);
-      history.push('/messages');
-    } catch (e) {
-      console.log(e.message);
+    const updatedUser = await api({endpoint: 'user/update', method: 'PATCH', values, token: user.token});
+    if (updatedUser.error) {
+      pushNotification('Errore', updatedUser.error);
+      return;
     }
+    setUser(updatedUser);
+    history.push('/messages');
   }
 
   return (
