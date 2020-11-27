@@ -1,4 +1,4 @@
-const base_url = 'http://server-instant-messaging.herokuapp.com';
+const base_url = 'https://server-instant-messaging.herokuapp.com';
 
 async function api({ endpoint, method, values, token }) {
   const options = {

@@ -10,7 +10,7 @@ import Profile from './views/Profile';
 import ChangePassword from './views/ChangePassword';
 import { api } from './lib/api';
 
-const base_url = 'http://server-instant-messaging.herokuapp.com';
+const base_url = 'https://server-instant-messaging.herokuapp.com';
 
 function App() {
 
