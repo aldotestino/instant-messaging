@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ChakraProvider, theme } from '@chakra-ui/react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import addNotification, { Notifications } from 'react-push-notification';
 import socket_io from 'socket.io-client';
-
 import Home from './views/Home';
-import Messages from './views/Messages';
-import Login from "./views/Login";
 import Register from './views/Register';
+import Login from './views/Login';
+import Chat from './views/Chat';
 import Profile from './views/Profile';
+import ChangePassword from './views/ChangePassword';
 import { api } from './lib/api';
 
-const base_url = 'https://server-instant-messaging.herokuapp.com';
+const base_url = 'http://server-instant-messaging.herokuapp.com';
 
 function App() {
 
-  let io = useRef(socket_io(base_url));
+  const io = useRef(socket_io(base_url));
 
   const [messages, setMessages] = useState([]);
 
@@ -26,7 +26,7 @@ function App() {
   });
 
   const getMessages = useCallback(async () => {
-    const msgs = await api({endpoint: 'messages', method: 'GET', token: user.token});
+    const msgs = await api({ endpoint: 'messages', method: 'GET', token: user.token });
     if (msgs.error) {
       alert(msgs.error);
       return;
@@ -50,43 +50,37 @@ function App() {
 
   }, [user, getMessages]);
 
-  function pushNotification(title, message) {
-    addNotification({
-      title,
-      message,
-      backgroundTop: '#2F89FC',
-      duration: 5000,
-      closeButton: <i className="fas fa-times"></i>
-    });
-  }
-
   return (
-    <Router>
-      <div>
-        <Notifications />
+    <ChakraProvider theme={theme}>
+      <Router>
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
           <Route exact path="/login">
-            <Login user={user} setUser={setUser} pushNotification={pushNotification} />
+            <Login user={user} setUser={setUser} />
           </Route>
           <Route exact path="/register">
-            <Register user={user} pushNotification={pushNotification} />
+            <Register user={user} />
           </Route>
-          <Route exact path="/messages">
-            <Messages messages={messages} user={user} setUser={setUser} />
+          <Route exact path="/chat">
+            <Chat messages={messages} user={user} />
           </Route>
           <Route exact path="/profile">
-            <Profile user={user} setUser={setUser} pushNotification={pushNotification} setMessages={setMessages} />
+            <Profile user={user} setUser={setUser} setMessages={setMessages} />
+          </Route>
+          <Route exact path="/profile/password">
+            <ChangePassword user={user} />
           </Route>
           <Route path="*">
             <Redirect to="/" />
           </Route>
         </Switch>
-      </div>
-    </Router >
+      </Router >
+
+    </ChakraProvider >
   );
 }
+
 
 export default App;
