@@ -24,7 +24,7 @@ function MessageInput({ user }) {
           ref={register({ required: true })}
           autoComplete="off"
           name="content" />
-        <IconButton size="lg" colorScheme="purple" ml={3}
+        <IconButton type="submit" size="lg" colorScheme="purple" ml={3}
           icon={<ArrowUpIcon w="30px" h="30px" />} />
       </Flex >
     </form>

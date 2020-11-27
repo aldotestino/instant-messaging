@@ -27,7 +27,6 @@ function Login({ user, setUser }) {
   async function onSubmit(values) {
     setLoading(true);
     const usr = await api({ endpoint: 'user/login', method: 'POST', values });
-    console.log(usr);
     reset();
     setLoading(false);
     if (usr.error) {
