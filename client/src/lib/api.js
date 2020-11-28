@@ -11,7 +11,7 @@ async function api({ endpoint, method, values, token }) {
     options.headers.token = token;
   }
   if (values) {
-    options.body = JSON.stringify(data);
+    options.body = JSON.stringify(values);
   }
   try {
     const response = await fetch(`${base_url}/api/v1/${endpoint}`, options);
