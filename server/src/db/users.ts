@@ -56,7 +56,7 @@ async function validateToken(token: string) {
 }
 
 async function update(token: string, newUsername: string, newPhotoUrl: string) {
-  const usernameValidation = Joi.string().min(2).max(20).required();
+  const usernameValidation = Joi.string().trim().min(2).max(20).required();
   const photoUrlValidation = Joi.string().uri().allow('');
   try {
     const [can_user_update] = await validateToken(token);
@@ -79,7 +79,7 @@ async function update(token: string, newUsername: string, newPhotoUrl: string) {
 }
 
 async function updatePassword(token: string, password: string, newPassword: string) {
-  const passwordValidation = Joi.string().required().min(5).required();
+  const passwordValidation = Joi.string().trim().required().min(5).required();
   try {
     const user = await users.findOne({ token });
     if (!user) {
