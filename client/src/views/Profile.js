@@ -38,6 +38,8 @@ function Profile({ user, setUser, setMessages }) {
       photoUrl: ''
     });
     setMessages([]);
+    localStorage.setItem('remember', null);
+    localStorage.setItem('user', null);
   }
 
   async function onSubmit(values) {
@@ -57,6 +59,9 @@ function Profile({ user, setUser, setMessages }) {
       });
     } else {
       setUser(updatedUser);
+      if (localStorage.getItem('remember') === 'true') {
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      }
     }
   }
 

@@ -10,6 +10,7 @@ import {
   Button,
   Link,
   useToast,
+  Checkbox,
 } from '@chakra-ui/react'
 import { AtSignIcon, LockIcon } from '@chakra-ui/icons'
 import { useForm } from 'react-hook-form';
@@ -25,6 +26,8 @@ function Login({ user, setUser }) {
   const toast = useToast();
 
   async function onSubmit(values) {
+    const { remember } = values;
+    delete values.remember;
     setLoading(true);
     const usr = await api({ endpoint: 'user/login', method: 'POST', values });
     reset();
@@ -40,6 +43,10 @@ function Login({ user, setUser }) {
       });
     } else {
       setUser(usr);
+      if (remember) {
+        localStorage.setItem('remember', remember);
+        localStorage.setItem('user', JSON.stringify(usr));
+      }
     }
   }
 
@@ -62,6 +69,7 @@ function Login({ user, setUser }) {
                 <Input type="password" placeholder="Password" name="password"
                   ref={register({ required: true })} />
               </InputGroup>
+              <Checkbox name="remember" ref={register} colorScheme="purple">Ricordami</Checkbox>
               <Button isLoading={loading} colorScheme="purple" type="submit">Login</Button>
               <Text>
                 Non hai un account?&nbsp;

@@ -18,11 +18,13 @@ function App() {
 
   const [messages, setMessages] = useState([]);
 
+  const savedUser = JSON.parse(localStorage.getItem('user'));
+
   const [user, setUser] = useState({
-    username: '',
-    token: '',
-    _id: '',
-    photoUrl: ''
+    username: savedUser?.username || '',
+    token: savedUser?.token || '',
+    _id: savedUser?._id || '',
+    photoUrl: savedUser?.photoUrl || ''
   });
 
   const getMessages = useCallback(async () => {
