@@ -11,6 +11,7 @@ import ChangePassword from './views/ChangePassword';
 import { api } from './lib/api';
 
 const base_url = 'https://server-instant-messaging.herokuapp.com';
+const savedUser = JSON.parse(localStorage.getItem('user'));
 
 function App() {
 
@@ -18,13 +19,11 @@ function App() {
 
   const [messages, setMessages] = useState([]);
 
-  const savedUser = JSON.parse(localStorage.getItem('user'));
-
-  const [user, setUser] = useState({
-    username: savedUser?.username || '',
-    token: savedUser?.token || '',
-    _id: savedUser?._id || '',
-    photoUrl: savedUser?.photoUrl || ''
+  const [user, setUser] = useState(savedUser || {
+    username: '',
+    token: '',
+    _id: '',
+    photoUrl: ''
   });
 
   const getMessages = useCallback(async () => {
@@ -79,7 +78,6 @@ function App() {
           </Route>
         </Switch>
       </Router >
-
     </ChakraProvider >
   );
 }
