@@ -20,7 +20,7 @@ import { api } from '../lib/api';
 
 function ChangePassword({ user }) {
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
@@ -66,14 +66,25 @@ function ChangePassword({ user }) {
               <InputGroup>
                 <InputLeftElement children={<LockIcon />} />
                 <Input type="password" placeholder="Password" name="password"
-                  ref={register({ required: true })} />
+                  ref={register({ required: true, minLength: 5 })} />
               </InputGroup>
+              {errors.password &&
+                <Text as="small" color="red.400">
+                  {errors.password.type === 'minLength' ? 'Password deve contenere almeno cinque caratteri' :
+                    'Questo campo è obbligatorio'}
+                </Text>}
               <InputGroup>
                 <InputLeftElement children={<LockIcon />} />
                 <Input type="password" placeholder="Nuova password" name="newPassword"
-                  ref={register({ required: true })} />
+                  ref={register({ required: true, minLength: 5 })} />
               </InputGroup>
-              <Button isLoading={loading} colorScheme="purple" type="submit">Aggiorna</Button>
+              {errors.newPassword &&
+                <Text as="small" color="red.400">
+                  {errors.newPassword.type === 'minLength' ? 'Password deve contenere almeno cinque caratteri' :
+                    'Questo campo è obbligatorio'}
+                </Text>}
+              <Button disabled={errors.password || errors.newPassword}
+                isLoading={loading} colorScheme="purple" type="submit">Aggiorna</Button>
             </Stack>
           </form>
         </Stack>

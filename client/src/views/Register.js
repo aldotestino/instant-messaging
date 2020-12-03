@@ -9,7 +9,7 @@ import {
   Input,
   Button,
   Link,
-  useToast
+  useToast,
 } from '@chakra-ui/react'
 import { EmailIcon, AtSignIcon, LockIcon, ViewIcon } from '@chakra-ui/icons'
 import { useForm } from 'react-hook-form';
@@ -19,7 +19,7 @@ import { api } from '../lib/api';
 
 function Register({ user }) {
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const toast = useToast();
@@ -58,28 +58,43 @@ function Register({ user }) {
       <Flex justify="center">
         <Stack mt="50px" spacing={5}>
           <Text textAlign="center" fontSize="42px">Registrati</Text>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} onError={console.log(errors)} >
             <Stack width="300px" spacing={3}>
               <InputGroup>
                 <InputLeftElement children={<EmailIcon />} />
                 <Input type="email" placeholder="Email" name="email"
                   ref={register({ required: true })} />
               </InputGroup>
+              {errors.email &&
+                <Text as="small" color="red.400">
+                  Questo campo è obbligatorio
+                </Text>}
               <InputGroup>
                 <InputLeftElement children={<AtSignIcon />} />
                 <Input type="text" placeholder="Username" name="username"
-                  ref={register({ required: true })} />
+                  ref={register({ required: true, minLength: 2 })} />
               </InputGroup>
+              {errors.username &&
+                <Text as="small" color="red.400">
+                  {errors.username.type === 'minLength' ? 'Username deve contenere almeno due caratteri' :
+                    'Questo campo è obbligatorio'}
+                </Text>}
               <InputGroup>
                 <InputLeftElement children={<LockIcon />} />
                 <Input type="password" placeholder="Password"
-                  name="password" ref={register({ required: true })} />
+                  name="password" ref={register({ required: true, minLength: 5 })} />
               </InputGroup>
+              {errors.password &&
+                <Text as="small" color="red.400">
+                  {errors.password.type === 'minLength' ? 'Password deve contenere almeno cinque caratteri' :
+                    'Questo campo è obbligatorio'}
+                </Text>}
               <InputGroup>
                 <InputLeftElement children={<ViewIcon />} />
                 <Input type="url" placeholder="Avatar" name="photoUrl" ref={register} />
               </InputGroup>
-              <Button isLoading={loading} colorScheme="purple" type="submit">Registrati</Button>
+              <Button disabled={errors.email || errors.username || errors.password} isLoading={loading}
+                colorScheme="purple" type="submit">Registrati</Button>
               <Text>
                 Possiedi già un account?&nbsp;
                 <Link as={RouterLink} color="purple.300" to="/login">Effettua il login!</Link>

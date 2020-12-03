@@ -21,12 +21,17 @@ import { api } from '../lib/api';
 
 function Profile({ user, setUser, setMessages }) {
 
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, errors, setValue, watch } = useForm({
     defaultValues: {
       newUsername: user.username,
       newPhotoUrl: user.photoUrl
     }
   });
+  const watchers = {
+    username: watch('newUsername', user.username),
+    photoUrl: watch('newPhotoUrl', user.photoUrl)
+  }
+
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
@@ -81,15 +86,23 @@ function Profile({ user, setUser, setMessages }) {
             <Stack width="300px" spacing={3}>
               <InputGroup>
                 <InputLeftElement children={<AtSignIcon />} />
-                <Input type="text" placeholder="Username" name="newUsername"
-                  ref={register({ required: true })} />
+                <Input type="text" key="newUsername" placeholder="Username" name="newUsername"
+                  ref={register({ required: true, minLength: 2 })} />
               </InputGroup>
+              {errors.newUsername &&
+                <Text as="small" color="red.400">
+                  {errors.newUsername.type === 'minLength' ? 'Username deve contenere almeno due caratteri' :
+                    'Questo campo è obbligatorio'}
+                </Text>}
               <InputGroup>
                 <InputLeftElement children={<ViewIcon />} />
-                <Input type="url" placeholder="Avatar" name="newPhotoUrl"
+                <Input type="url" key="newPhotoUrl" placeholder="Avatar" name="newPhotoUrl"
                   ref={register} />
               </InputGroup>
-              <Button isLoading={loading} colorScheme="purple" type="submit">Aggiorna</Button>
+              <Button isLoading={loading}
+                disabled={(watchers.username === user.username && watchers.photoUrl === user.photoUrl) ||
+                  errors.newUsername}
+                colorScheme="purple" type="submit">Aggiorna</Button>
               <Button as={RouterLink} to="/profile/password">Cambia password</Button>
               <Button type="button" onClick={logout}>Logout</Button>
             </Stack>

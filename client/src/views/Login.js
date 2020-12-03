@@ -20,7 +20,7 @@ import { api } from '../lib/api';
 
 function Login({ user, setUser }) {
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
   const [loading, setLoading] = useState(false);
 
   const toast = useToast();
@@ -62,15 +62,26 @@ function Login({ user, setUser }) {
               <InputGroup>
                 <InputLeftElement children={<AtSignIcon />} />
                 <Input type="text" placeholder="Username" name="username"
-                  ref={register({ required: true })} />
+                  ref={register({ required: true, minLength: 2 })} />
               </InputGroup>
+              {errors.username &&
+                <Text as="small" color="red.400">
+                  {errors.username.type === 'minLength' ? 'Username deve contenere almeno due caratteri' :
+                    'Questo campo è obbligatorio'}
+                </Text>}
               <InputGroup>
                 <InputLeftElement children={<LockIcon />} />
                 <Input type="password" placeholder="Password" name="password"
-                  ref={register({ required: true })} />
+                  ref={register({ required: true, minLength: 5 })} />
               </InputGroup>
+              {errors.password &&
+                <Text as="small" color="red.400">
+                  {errors.password.type === 'minLength' ? 'Password deve contenere almeno cinque caratteri' :
+                    'Questo campo è obbligatorio'}
+                </Text>}
               <Checkbox name="remember" ref={register} colorScheme="purple">Ricordami</Checkbox>
-              <Button isLoading={loading} colorScheme="purple" type="submit">Login</Button>
+              <Button disabled={errors.username || errors.password} isLoading={loading}
+                colorScheme="purple" type="submit">Login</Button>
               <Text>
                 Non hai un account?&nbsp;
                 <Link as={RouterLink} color="purple.300" to="/register">Registrati!</Link>
