@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Stack, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom';
 import DefaultNavbar from '../components/DefaultNavbar';
+import { ACCENT_COLOR } from '../lib/config';
 
 function Home() {
 
@@ -19,7 +20,7 @@ function Home() {
               target="_blank"
               href="https://github.com/aldotestino/instant-messaging"
               variant="outline">Follow On Github</Button>
-            <Button as={RouterLink} to="/register" colorScheme="purple">
+            <Button as={RouterLink} to="/register" colorScheme={ACCENT_COLOR}>
               Registrati
             </Button>
           </Stack>

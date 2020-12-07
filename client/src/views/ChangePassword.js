@@ -16,6 +16,7 @@ import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ChatNavbar from '../components/ChatNavbar';
 import { api } from '../lib/api';
+import { ACCENT_COLOR } from '../lib/config';
 
 
 function ChangePassword({ user }) {
@@ -84,7 +85,7 @@ function ChangePassword({ user }) {
                     'Questo campo è obbligatorio'}
                 </Text>}
               <Button disabled={errors.password || errors.newPassword}
-                isLoading={loading} colorScheme="purple" type="submit">Aggiorna</Button>
+                isLoading={loading} colorScheme={ACCENT_COLOR} type="submit">Aggiorna</Button>
             </Stack>
           </form>
         </Stack>

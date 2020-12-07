@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import DefaultNavbar from '../components/DefaultNavbar';
 import { api } from '../lib/api';
+import { ACCENT_COLOR } from '../lib/config';
 
 function Login({ user, setUser }) {
 
@@ -79,12 +80,12 @@ function Login({ user, setUser }) {
                   {errors.password.type === 'minLength' ? 'Password deve contenere almeno cinque caratteri' :
                     'Questo campo è obbligatorio'}
                 </Text>}
-              <Checkbox name="remember" ref={register} colorScheme="purple">Ricordami</Checkbox>
+              <Checkbox name="remember" ref={register} colorScheme={ACCENT_COLOR}>Ricordami</Checkbox>
               <Button disabled={errors.username || errors.password} isLoading={loading}
-                colorScheme="purple" type="submit">Login</Button>
+                colorScheme={ACCENT_COLOR} type="submit">Login</Button>
               <Text>
                 Non hai un account?&nbsp;
-                <Link as={RouterLink} color="purple.300" to="/register">Registrati!</Link>
+                <Link as={RouterLink} color={`${ACCENT_COLOR}.300`} to="/register">Registrati!</Link>
               </Text>
             </Stack>
           </form>

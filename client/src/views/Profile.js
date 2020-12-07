@@ -17,6 +17,7 @@ import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ChatNavbar from '../components/ChatNavbar';
 import { api } from '../lib/api';
+import { ACCENT_COLOR } from '../lib/config';
 
 
 function Profile({ user, setUser, setMessages }) {
@@ -102,7 +103,7 @@ function Profile({ user, setUser, setMessages }) {
               <Button isLoading={loading}
                 disabled={(watchers.username === user.username && watchers.photoUrl === user.photoUrl) ||
                   errors.newUsername}
-                colorScheme="purple" type="submit">Aggiorna</Button>
+                colorScheme={ACCENT_COLOR} type="submit">Aggiorna</Button>
               <Button as={RouterLink} to="/profile/password">Cambia password</Button>
               <Button type="button" onClick={logout}>Logout</Button>
             </Stack>

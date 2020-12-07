@@ -1,4 +1,4 @@
-const base_url = 'https://server-instant-messaging.herokuapp.com';
+import { SERVER_URL } from './config';
 
 async function api({ endpoint, method, values, token }) {
   const options = {
@@ -14,7 +14,7 @@ async function api({ endpoint, method, values, token }) {
     options.body = JSON.stringify(values);
   }
   try {
-    const response = await fetch(`${base_url}/api/v1/${endpoint}`, options);
+    const response = await fetch(`${SERVER_URL}/api/v1/${endpoint}`, options);
     return await response.json();
   } catch (e) {
     console.log(e);

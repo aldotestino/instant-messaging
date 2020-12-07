@@ -9,13 +9,13 @@ import Chat from './views/Chat';
 import Profile from './views/Profile';
 import ChangePassword from './views/ChangePassword';
 import { api } from './lib/api';
+import { SERVER_URL } from './lib/config';
 
-const base_url = 'https://server-instant-messaging.herokuapp.com';
 const savedUser = JSON.parse(localStorage.getItem('user'));
 
 function App() {
 
-  const io = useRef(socket_io(base_url));
+  const io = useRef(socket_io(SERVER_URL));
 
   const [messages, setMessages] = useState([]);
 
@@ -38,7 +38,7 @@ function App() {
   useEffect(() => {
     if (user.token) {
       getMessages().then(() => {
-        io.current = socket_io(base_url);
+        io.current = socket_io(SERVER_URL);
         io.current.on('message', data => {
           setMessages(prevMessages => [...prevMessages, data]);
         });

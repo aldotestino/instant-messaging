@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import ChatNavbar from '../components/ChatNavbar';
 import MessageInput from '../components/MessageInput';
 import Message from '../components/Message';
+import { ACCENT_COLOR } from '../lib/config';
 
 function Chat({ user, messages }) {
 
@@ -14,6 +15,8 @@ function Chat({ user, messages }) {
       chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
   }, [messages]);
 
+  let currentDate = messages.length ? new Date(messages[0].date).toLocaleDateString() : null;
+
   return (
     <Box minH="100vh">
       {!user.token && <Redirect to={{ pathname: '/login' }} />}
@@ -21,8 +24,16 @@ function Chat({ user, messages }) {
         <Text fontSize="1.25rem">Chat</Text>
       </ChatNavbar>
       <Stack ref={chatContainer} direction="column" h="calc(100vh - 136px)" spacing={3} overflow="auto" p={3} >
-        {!messages.length && <Progress colorScheme="purple" size="xs" isIndeterminate />}
-        {messages.map(message => <Message key={message._id} message={message} user={user} />)}
+        {!messages.length && <Progress colorScheme={ACCENT_COLOR} size="xs" isIndeterminate />}
+        {messages.map((message, i) => {
+          const messageDate = new Date(message.date).toLocaleDateString();
+          let showDate = false;
+          if (i === 0 || messageDate !== currentDate) {
+            currentDate = messageDate;
+            showDate = true;
+          }
+          return <Message showDate={showDate} key={message._id} message={message} user={user} />
+        })}
       </Stack>
       <MessageInput user={user} />
     </Box >

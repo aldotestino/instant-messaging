@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { Link as RouterLink, Redirect, useHistory } from 'react-router-dom';
 import DefaultNavbar from '../components/DefaultNavbar';
 import { api } from '../lib/api';
+import { ACCENT_COLOR } from '../lib/config';
 
 function Register({ user }) {
 
@@ -41,7 +42,7 @@ function Register({ user }) {
     } else {
       toast({
         title: 'Registrazione effettuata!',
-        description: `Abbiamo inviato una mail a "${usr.message}" per la conferma del tuo account.`,
+        description: usr.message,
         duration: '5000',
         status: 'success',
         isClosable: 'true',
@@ -94,10 +95,10 @@ function Register({ user }) {
                 <Input type="url" placeholder="Avatar" name="photoUrl" ref={register} />
               </InputGroup>
               <Button disabled={errors.email || errors.username || errors.password} isLoading={loading}
-                colorScheme="purple" type="submit">Registrati</Button>
+                colorScheme={ACCENT_COLOR} type="submit">Registrati</Button>
               <Text>
                 Possiedi già un account?&nbsp;
-                <Link as={RouterLink} color="purple.300" to="/login">Effettua il login!</Link>
+                <Link as={RouterLink} color={`${ACCENT_COLOR}.300`} to="/login">Effettua il login!</Link>
               </Text>
             </Stack>
           </form>

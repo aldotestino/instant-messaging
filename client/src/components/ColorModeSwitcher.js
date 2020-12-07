@@ -1,5 +1,6 @@
 import React from 'react';
 import { useColorMode, Switch } from '@chakra-ui/react';
+import { ACCENT_COLOR } from '../lib/config';
 
 function ColorModeSwitcher(props) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -8,7 +9,7 @@ function ColorModeSwitcher(props) {
     <Switch
       size="lg"
       isChecked={colorMode === 'dark' ? true : false}
-      colorScheme="purple"
+      colorScheme={ACCENT_COLOR}
       onChange={toggleColorMode}
       {...props}
     />

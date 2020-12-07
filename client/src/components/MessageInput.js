@@ -3,6 +3,8 @@ import { Flex, Input, IconButton, } from '@chakra-ui/react';
 import { ArrowUpIcon } from '@chakra-ui/icons'
 import { useForm } from 'react-hook-form';
 import { api } from '../lib/api';
+import { ACCENT_COLOR } from '../lib/config';
+
 
 function MessageInput({ user }) {
 
@@ -24,7 +26,7 @@ function MessageInput({ user }) {
           ref={register({ required: true })}
           autoComplete="off"
           name="content" />
-        <IconButton type="submit" size="lg" colorScheme="purple" ml={3}
+        <IconButton type="submit" size="lg" colorScheme={ACCENT_COLOR} ml={3}
           icon={<ArrowUpIcon w="30px" h="30px" />} />
       </Flex >
     </form>
