@@ -18,7 +18,7 @@ function App() {
   const io = useRef(socket_io(SERVER_URL));
 
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState([false]);
+  const [loading, setLoading] = useState(false);
 
   const [user, setUser] = useState(savedUser || {
     username: '',
