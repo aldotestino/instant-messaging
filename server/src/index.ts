@@ -2,9 +2,9 @@ import express, { NextFunction, Request, Response } from 'express';
 import socket_io from 'socket.io';
 import cors from 'cors';
 import morgan from 'morgan';
+require('dotenv').config();
 import userRoute from './routes/user';
 import messageRoute, { setSocket } from './routes/message';
-require('dotenv').config();
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use('/api/v1/user', userRoute);
 app.use('/api/v1/messages', messageRoute);
 
 app.get('/', (_req, res) => {
-  const client_url = process.env.CLIENT_URL || 'http://localhost:3000';
+  const client_url = process.env.CLIENT_URL || 'http://host.docker.internal:3000';
   res.redirect(client_url);
 });
 

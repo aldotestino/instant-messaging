@@ -94,7 +94,7 @@ function Register({ user }) {
                 <InputLeftElement children={<ViewIcon />} />
                 <Input type="url" placeholder="Avatar" name="photoUrl" ref={register} />
               </InputGroup>
-              <Button disabled={errors.email || errors.username || errors.password} isLoading={loading}
+              <Button disabled={errors.email || errors.username || errors.password || loading} isLoading={loading}
                 colorScheme={ACCENT_COLOR} type="submit">Registrati</Button>
               <Text>
                 Possiedi già un account?&nbsp;

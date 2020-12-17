@@ -30,7 +30,7 @@ userRoute.get('/activate/:token', async (req, res, next) => {
     const { token } = req.params;
     const confirmed = await activateAccount(token);
 
-    const client_url = process.env.CLIENT_URL || 'http://localhost:3000';
+    const client_url = process.env.CLIENT_URL || 'http://host.docker.internal:3000';
 
     if (confirmed) {
       res.redirect(`${client_url}/login`);

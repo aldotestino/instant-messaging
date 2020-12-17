@@ -81,7 +81,7 @@ function Login({ user, setUser }) {
                     'Questo campo è obbligatorio'}
                 </Text>}
               <Checkbox name="remember" ref={register} colorScheme={ACCENT_COLOR}>Ricordami</Checkbox>
-              <Button disabled={errors.username || errors.password} isLoading={loading}
+              <Button disabled={errors.username || errors.password || loading} isLoading={loading}
                 colorScheme={ACCENT_COLOR} type="submit">Login</Button>
               <Text>
                 Non hai un account?&nbsp;
