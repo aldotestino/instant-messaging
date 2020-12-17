@@ -18,6 +18,7 @@ function App() {
   const io = useRef(socket_io(SERVER_URL));
 
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState([false]);
 
   const [user, setUser] = useState(savedUser || {
     username: '',
@@ -27,12 +28,14 @@ function App() {
   });
 
   const getMessages = useCallback(async () => {
+    setLoading(true);
     const msgs = await api({ endpoint: 'messages', method: 'GET', token: user.token });
     if (msgs.error) {
       alert(msgs.error);
       return;
     }
     setMessages(msgs);
+    setLoading(false);
   }, [user]);
 
   useEffect(() => {
@@ -65,7 +68,7 @@ function App() {
             <Register user={user} />
           </Route>
           <Route exact path="/chat">
-            <Chat messages={messages} user={user} />
+            <Chat messages={messages} loading={loading} user={user} />
           </Route>
           <Route exact path="/profile">
             <Profile user={user} setUser={setUser} setMessages={setMessages} />

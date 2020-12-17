@@ -6,7 +6,7 @@ import MessageInput from '../components/MessageInput';
 import Message from '../components/Message';
 import { ACCENT_COLOR } from '../lib/config';
 
-function Chat({ user, messages }) {
+function Chat({ user, messages, loading }) {
 
   const chatContainer = useRef(null);
 
@@ -24,7 +24,7 @@ function Chat({ user, messages }) {
         <Text fontSize="1.25rem">Chat</Text>
       </ChatNavbar>
       <Stack ref={chatContainer} direction="column" h="calc(100vh - 136px)" spacing={3} overflow="auto" p={3} >
-        {!messages.length && <Progress colorScheme={ACCENT_COLOR} size="xs" isIndeterminate />}
+        {loading && <Progress colorScheme={ACCENT_COLOR} size="xs" isIndeterminate />}
         {messages.map((message, i) => {
           const messageDate = new Date(message.date).toLocaleDateString();
           let showDate = false;
