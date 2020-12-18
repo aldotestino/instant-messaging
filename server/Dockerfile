@@ -1,13 +1,15 @@
 FROM node:latest
 
-WORKDIR /usr/app
+WORKDIR /usr/app/server/
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY . ./
 
 RUN npm run build
+
+EXPOSE 3001
 
 CMD [ "node", "out/index.js" ]

@@ -1,0 +1,24 @@
+version: "3"
+
+services: 
+  server:
+    build: ./server
+    ports: 
+      - "3001:3001"
+    depends_on: 
+      - db
+    container_name: instant-messaging-server
+    
+  client:
+    build: ./client
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - server
+    container_name: instant-messaging-client
+
+  db:
+    image: mongo:4
+    ports:
+      - "27017:27017"
+    container_name: instant-messaging-db

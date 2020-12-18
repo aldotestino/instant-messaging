@@ -23,7 +23,7 @@ app.use('/api/v1/user', userRoute);
 app.use('/api/v1/messages', messageRoute);
 
 app.get('/', (_req, res) => {
-  const client_url = process.env.CLIENT_URL || 'http://host.docker.internal:3000';
+  const client_url = process.env.CLIENT_URL || 'http://localhost:3000';
   res.redirect(client_url);
 });
 

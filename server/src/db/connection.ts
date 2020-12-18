@@ -2,7 +2,7 @@ import monk from 'monk'
 import User from '../types/User';
 import Message from '../types/Message'
 
-const connectionString = process.env.MONGO_URI || 'host.docker.internal/instant-messaging';
+const connectionString = process.env.MONGO_URI || 'mongodb://instant-messaging-db:27017/instant-messaging';
 const db = monk(connectionString);
 
 const users = db.get<User>('users');
