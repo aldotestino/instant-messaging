@@ -43,7 +43,7 @@ function Register({ user }) {
       toast({
         title: 'Registrazione effettuata!',
         description: usr.message,
-        duration: '5000',
+        duration: 5000,
         status: 'success',
         isClosable: 'true',
         position: 'top'
