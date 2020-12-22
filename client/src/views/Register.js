@@ -57,7 +57,7 @@ function Register({ user }) {
       {user.token && <Redirect to={{ pathname: '/chat' }} />}
       <DefaultNavbar />
       <Flex justify="center">
-        <Stack mt="50px" spacing={5}>
+        <Stack my="50px" spacing={5}>
           <Text textAlign="center" fontSize="42px">Registrati</Text>
           <form onSubmit={handleSubmit(onSubmit)} >
             <Stack width="300px" spacing={3}>

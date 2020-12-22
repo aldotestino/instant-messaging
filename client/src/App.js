@@ -30,6 +30,7 @@ function App() {
   const getMessages = useCallback(async () => {
     setLoading(true);
     const msgs = await api({ endpoint: 'messages', method: 'GET', token: user.token });
+    console.log(msgs);
     if (msgs.error) {
       alert(msgs.error);
       return;
@@ -54,6 +55,18 @@ function App() {
 
   }, [user, getMessages]);
 
+  function logout() {
+    setUser({
+      username: '',
+      token: '',
+      _id: '',
+      photoUrl: ''
+    });
+    setMessages([]);
+    localStorage.setItem('remember', null);
+    localStorage.setItem('user', null);
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <Router>
@@ -68,13 +81,13 @@ function App() {
             <Register user={user} />
           </Route>
           <Route exact path="/chat">
-            <Chat messages={messages} loading={loading} user={user} />
+            <Chat messages={messages} loading={loading} user={user} logout={logout} />
           </Route>
           <Route exact path="/profile">
-            <Profile user={user} setUser={setUser} setMessages={setMessages} />
+            <Profile user={user} setUser={setUser} setMessages={setMessages} logout={logout} />
           </Route>
           <Route exact path="/profile/password">
-            <ChangePassword user={user} />
+            <ChangePassword user={user} logout={logout} />
           </Route>
           <Route path="*">
             <Redirect to="/" />

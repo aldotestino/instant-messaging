@@ -10,17 +10,19 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  IconButton
+  IconButton,
+  useDisclosure
 } from '@chakra-ui/react';
 import { AtSignIcon, ArrowBackIcon, ViewIcon } from '@chakra-ui/icons'
 import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ChatNavbar from '../components/ChatNavbar';
+import ConfirmAction from '../components/ConfirmAction';
 import { api } from '../lib/api';
 import { ACCENT_COLOR } from '../lib/config';
 
 
-function Profile({ user, setUser, setMessages }) {
+function Profile({ user, setUser, logout }) {
 
   const { register, handleSubmit, errors, setValue, watch } = useForm({
     defaultValues: {
@@ -36,17 +38,7 @@ function Profile({ user, setUser, setMessages }) {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  function logout() {
-    setUser({
-      username: '',
-      token: '',
-      _id: '',
-      photoUrl: ''
-    });
-    setMessages([]);
-    localStorage.setItem('remember', null);
-    localStorage.setItem('user', null);
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   async function onSubmit(values) {
     setLoading(true);
@@ -71,16 +63,32 @@ function Profile({ user, setUser, setMessages }) {
     }
   }
 
+  async function deleteAccount() {
+    const response = await api({ endpoint: 'user/delete', method: 'GET', token: user.token });
+    toast({
+      position: 'top',
+      title: 'Elimina Account',
+      description: response.message,
+      status: 'success',
+      duration: 5000,
+      isClosable: true
+    });
+    logout();
+  }
+
   return (
     <Box minH="100vh">
       {!user.token && <Redirect to={{ pathname: '/login' }} />}
-      <ChatNavbar photoUrl={user.photoUrl}>
+      <ConfirmAction isOpen={isOpen} onClose={onClose} action={deleteAccount}
+        titile="Elimina Account" description="Sei sicuro di voler eliminare il tuo account?
+        Tutti i tuoi messaggi verranno eliminati." primary="Elimina" />
+      <ChatNavbar photoUrl={user.photoUrl} logout={logout} >
         <IconButton as={RouterLink}
           to="/chat" variant="ghost"
           icon={<ArrowBackIcon w="25px" h="25px" />} />
       </ChatNavbar>
       <Flex justify="center">
-        <Stack mt="50px" spacing={5}>
+        <Stack my="50px" spacing={5}>
           <Avatar size="2xl" alignSelf="center" src={user.photoUrl} />
           <Text textAlign="center" fontSize="42px">Profilo</Text>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -105,7 +113,7 @@ function Profile({ user, setUser, setMessages }) {
                   errors.newUsername}
                 colorScheme={ACCENT_COLOR} type="submit">Aggiorna</Button>
               <Button as={RouterLink} to="/profile/password">Cambia password</Button>
-              <Button type="button" onClick={logout}>Logout</Button>
+              <Button colorScheme="red" onClick={onOpen}>Elimina account</Button>
             </Stack>
           </form>
         </Stack>

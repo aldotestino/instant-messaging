@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, activateAccount, update, updatePassword } from '../db/users';
+import { register, login, activateAccount, update, updatePassword, deleteAccount } from '../db/users';
 import nodemailer from 'nodemailer';
 import User from '../types/User';
 
@@ -107,5 +107,16 @@ userRoute.patch('/update/password', async (req, res, next) => {
     next(e);
   }
 });
+
+userRoute.get('/delete', async (req, res, next) => {
+  try {
+    const { token } = req.headers;
+    const response = await deleteAccount(token as string);
+    res.status(200);
+    res.json(response);
+  } catch (e) {
+    next(e);
+  }
+})
 
 export default userRoute;

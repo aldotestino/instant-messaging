@@ -1,6 +1,6 @@
 import User from '../types/User';
 import userSchema from './schemas/userSchema';
-import { users } from './connection';
+import { users, messages } from './connection';
 import bcrypt from 'bcrypt';
 import Joi from 'joi';
 import { v4 as uuidv4 } from 'uuid'
@@ -107,11 +107,27 @@ async function updatePassword(token: string, password: string, newPassword: stri
   }
 }
 
+async function deleteAccount(token: string) {
+  try {
+    const deletedUser = await users.findOneAndDelete({ token });
+    if (!deletedUser) {
+      throw new Error('Account inesistente!');
+    }
+    await messages.remove({ user_id: String(deletedUser._id) });
+    return {
+      message: 'Account eliminato con successo!'
+    }
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+
 export {
   register,
   login,
   update,
   updatePassword,
   validateToken,
-  activateAccount
+  activateAccount,
+  deleteAccount
 };

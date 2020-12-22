@@ -6,7 +6,7 @@ import MessageInput from '../components/MessageInput';
 import Message from '../components/Message';
 import { ACCENT_COLOR } from '../lib/config';
 
-function Chat({ user, messages, loading }) {
+function Chat({ user, messages, loading, logout }) {
 
   const chatContainer = useRef(null);
 
@@ -20,7 +20,7 @@ function Chat({ user, messages, loading }) {
   return (
     <Box minH="100vh">
       {!user.token && <Redirect to={{ pathname: '/login' }} />}
-      <ChatNavbar photoUrl={user.photoUrl} >
+      <ChatNavbar photoUrl={user.photoUrl} logout={logout} >
         <Text fontSize="1.25rem">Chat</Text>
       </ChatNavbar>
       <Stack ref={chatContainer} direction="column" h="calc(100vh - 136px)" spacing={3} overflow="auto" p={3} >

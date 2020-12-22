@@ -19,7 +19,7 @@ import { api } from '../lib/api';
 import { ACCENT_COLOR } from '../lib/config';
 
 
-function ChangePassword({ user }) {
+function ChangePassword({ user, logout }) {
 
   const { register, handleSubmit, errors, reset } = useForm();
   const [loading, setLoading] = useState(false);
@@ -54,13 +54,13 @@ function ChangePassword({ user }) {
   return (
     <Box minH="100vh">
       {!user.token && <Redirect to={{ pathname: '/login' }} />}
-      <ChatNavbar photoUrl={user.photoUrl}>
+      <ChatNavbar photoUrl={user.photoUrl} logout={logout}>
         <IconButton as={RouterLink}
           to="/profile" variant="ghost"
           icon={<ArrowBackIcon w="25px" h="25px" />} />
       </ChatNavbar>
       <Flex justify="center">
-        <Stack mt="50px" spacing={5}>
+        <Stack my="50px" spacing={5}>
           <Text textAlign="center" fontSize="42px">Password</Text>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack width="300px" spacing={3}>
