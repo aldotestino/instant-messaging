@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { api } from '../lib/api';
 import { ACCENT_COLOR } from '../lib/config';
 
-
 function MessageInput({ user }) {
 
   const { register, handleSubmit, reset } = useForm();
@@ -13,6 +12,8 @@ function MessageInput({ user }) {
   async function onSubmit(_values) {
     const values = _values;
     reset();
+    if (values.content.trim() === '')
+      return;
     const { error } = await api({ endpoint: 'messages', method: 'POST', values, token: user.token });
     if (error) {
       console.log(error);
