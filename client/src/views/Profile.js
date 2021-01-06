@@ -21,7 +21,6 @@ import ConfirmAction from '../components/ConfirmAction';
 import { api } from '../lib/api';
 import { ACCENT_COLOR } from '../lib/config';
 
-
 function Profile({ user, setUser, logout }) {
 
   const { register, handleSubmit, errors, setValue, watch } = useForm({
@@ -31,8 +30,8 @@ function Profile({ user, setUser, logout }) {
     }
   });
   const watchers = {
-    username: watch('newUsername', user.username),
-    photoUrl: watch('newPhotoUrl', user.photoUrl)
+    newUsername: watch('newUsername', user.username),
+    newPhotoUrl: watch('newPhotoUrl', user.photoUrl)
   }
 
   const [loading, setLoading] = useState(false);
@@ -109,7 +108,7 @@ function Profile({ user, setUser, logout }) {
                   ref={register} />
               </InputGroup>
               <Button isLoading={loading}
-                disabled={(watchers.username === user.username && watchers.photoUrl === user.photoUrl) ||
+                disabled={(watchers.newUsername === user.username && watchers.newPhotoUrl === user.photoUrl) ||
                   errors.newUsername}
                 colorScheme={ACCENT_COLOR} type="submit">Aggiorna</Button>
               <Button as={RouterLink} to="/profile/password">Cambia password</Button>

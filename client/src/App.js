@@ -30,7 +30,6 @@ function App() {
   const getMessages = useCallback(async () => {
     setLoading(true);
     const msgs = await api({ endpoint: 'messages', method: 'GET', token: user.token });
-    console.log(msgs);
     if (msgs.error) {
       alert(msgs.error);
       return;
