@@ -23,10 +23,12 @@
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "subscriptions-transport-ws": "^0.9.18",
     "typescript": "^3.9.9",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
+    "generate": "npx apollo client:codegen --target typescript --endpoint=http://localhost:4000 --outputFlat --includes \"src/**\" --excludes \"src/__generated__\" src/__generated__",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

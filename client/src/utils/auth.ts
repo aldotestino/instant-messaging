@@ -1,21 +1,11 @@
+import { LoginMutationVariables } from '../__generated__/LoginMutation';
+import { SignupMutationVariables } from '../__generated__/SignupMutation';
+
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
 
-export interface SignupArgs {
-  email: string
-  username: string
-  password: string
-  avatar?: string
-}
-
-export interface LoginArgs {
-  username: string
-  password: string
-}
-
-
-export function validateSignupArgs(values: SignupArgs) {
-  const errors: Partial<SignupArgs> = {}; 
+export function validateSignupArgs(values: SignupMutationVariables) {
+  const errors: Partial<SignupMutationVariables> = {}; 
 
   if (!values.email) {
     errors.email = 'Required';
@@ -42,8 +32,8 @@ export function validateSignupArgs(values: SignupArgs) {
   return errors;
 };
 
-export function validateLoginArgs(values: LoginArgs) {
-  const errors: Partial<SignupArgs> = {}; 
+export function validateLoginArgs(values: LoginMutationVariables) {
+  const errors: Partial<LoginMutationVariables> = {}; 
 
   if (!values.username) {
     errors.username = 'Required';
@@ -59,3 +49,52 @@ export function validateLoginArgs(values: LoginArgs) {
 
   return errors;
 };
+
+export interface UpdateArgs {
+  newUsername: string
+  newAvatar?: string
+}
+
+export function validateUpdateArgs(values: UpdateArgs) {
+  const errors: Partial<UpdateArgs> = {}; 
+
+  if (!values.newUsername) {
+    errors.newUsername = 'Required';
+  } else if (values.newUsername.length < 3) {
+    errors.newUsername = 'Must be 3 characters or more';
+  }
+
+  if(values.newAvatar && !URL_REGEX.test(values.newAvatar) && values.newAvatar !== '') {
+    errors.newAvatar = 'Invalid URL';
+  }
+
+  return errors;
+};
+
+export interface ChangePasswordArgs {
+  oldPassword: string
+  newPassword: string
+}
+
+export function validateChangePasswordArgs(values: ChangePasswordArgs) {
+  const errors: Partial<ChangePasswordArgs> = {}; 
+
+  if (!values.oldPassword) {
+    errors.oldPassword = 'Required';
+  } else if (values.oldPassword.length < 5) {
+    errors.oldPassword = 'Must be 5 characters or more';
+  }
+
+  if (!values.newPassword) {
+    errors.newPassword = 'Required';
+  } else if (values.newPassword.length < 5) {
+    errors.newPassword = 'Must be 5 characters or more';
+  }
+
+  return errors;
+};
+
+
+export function getTokenFromLocalStorage(): string  {
+  return JSON.parse(localStorage.getItem('auth') || '{}').token || '';
+}

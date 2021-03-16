@@ -5,13 +5,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ColorModeScript, ChakraProvider, theme } from '@chakra-ui/react';
 import { UserProvider } from './store/index';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './utils/apolloConfig';
 import App from './App';
-
-const client = new ApolloClient({
-  uri: 'http://localhost:4000',
-  cache: new InMemoryCache()
-});
 
 ReactDOM.render(
   <React.StrictMode>
