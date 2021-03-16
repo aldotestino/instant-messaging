@@ -1,13 +1,13 @@
-# instant-messaging by aldotestino
+## Instant Messaging
 
-## A real-time chat application
+### A simple realtime chat app
 
-### Version: 1.0.0
-
-### Languages: 
-* Javascript,
-* Node,
+### Stack
+* Node.js
+* Graphql
+* Apollo
 * React
+* Typescript
 
 
 

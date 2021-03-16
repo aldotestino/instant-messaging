@@ -1,6 +1,4 @@
 /server/node_modules
-/server/out
-/server/.env
-/.idea
-/client-old
-.DS_Store
+.env
+/server/prisma/dev.db*
+/dist

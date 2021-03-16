@@ -1,35 +1,31 @@
-import express, { NextFunction, Request, Response } from 'express';
-import socket_io from 'socket.io';
-import cors from 'cors';
-import morgan from 'morgan';
-require('dotenv').config();
-import userRoute from './routes/user';
-import messageRoute, { setSocket } from './routes/message';
+import { ApolloServer, PubSub } from 'apollo-server';
+import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const app = express();
+import { typeDefs } from './typeDefs';
+import { resolvers } from './resolvers';
+import { getUserId } from './utils/getUserId';
 
-const PORT = process.env.PORT || 3001;
-const server = app.listen(PORT, () => {
-  console.log(`Listening @${PORT}`);
+const prisma = new PrismaClient();
+const pubsub = new PubSub();
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req, connection }) => ({
+    ...req,
+    prisma,
+    pubsub,
+    userId: req ? getUserId(req) : getUserId(connection?.context)
+  }),
+  subscriptions: {
+    onConnect: (connectionParams: any) => ({
+      headers: {
+        authorization: connectionParams?.authorization
+      }
+    })
+  }
 });
-const io = socket_io(server);
 
-setSocket(io);
-
-app.use(morgan('tiny'));
-app.use(cors());
-app.use(express.json());
-app.use('/api/v1/user', userRoute);
-app.use('/api/v1/messages', messageRoute);
-
-app.get('/', (_req, res) => {
-  const client_url = process.env.CLIENT_URL || 'http://localhost:3000';
-  res.redirect(client_url);
-});
-
-app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  res.status(400);
-  res.json({
-    error: err.message
-  });
-});
+server.listen().then(({ url }) => console.log(`Server running at ${url}`));
