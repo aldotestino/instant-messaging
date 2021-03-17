@@ -11,7 +11,6 @@ export interface LoginMutation_login_user {
   __typename: "User";
   id: string;
   username: string;
-  email: string;
   avatar: string | null;
 }
 

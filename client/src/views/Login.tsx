@@ -17,7 +17,6 @@ const LOGIN_MUTATION = gql`
       user {
         id
         username
-        email
         avatar
       }
     }
@@ -32,7 +31,8 @@ function Login() {
 
   const [login, { loading }] = useMutation<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION, {
     onCompleted: ({ login }) => {
-      localStorage.setItem('auth', JSON.stringify(login));
+      localStorage.setItem('user', JSON.stringify(login?.user));
+      localStorage.setItem('token', login?.token!);
       setAuth(login);
       history.push('/chat');
     },

@@ -1,7 +1,7 @@
-import React, { LegacyRef, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useAuth } from '../store';
-import MessageInput from '../components/MessgeInput';
+import MessageInput from '../components/MessageInput';
 import { Grid, Progress, Stack } from '@chakra-ui/react';
 import { gql, useQuery } from '@apollo/client';
 import { MessagesQuery } from '../__generated__/MessagesQuery';
@@ -38,20 +38,15 @@ const NEW_MESSAGE_SUBSCRIPTION = gql`
   }
 `;
 
+let currentDate = '';
+
 function Chat() {
 
-  const { auth } = useAuth();
-  const { data, loading, subscribeToMore } = useQuery<MessagesQuery>(MESSAGES_QUERY);
+  const { isAuth } = useAuth();
   const chatRef = useRef<HTMLDivElement>(null);
   
-  let currentDate = data?.messages.length ? new Date(data.messages[0].createdAt).toLocaleDateString() : null;
-
-  useEffect(() => {
-    if(chatRef.current?.scrollTop) {
-      chatRef.current.scrollTop = chatRef.current?.scrollHeight;
-    }
-  }, [data]);
-
+  const { data, loading, subscribeToMore } = useQuery<MessagesQuery>(MESSAGES_QUERY);
+  
   subscribeToMore({
     document: NEW_MESSAGE_SUBSCRIPTION,
     updateQuery: (prev, { subscriptionData }: any) => {
@@ -70,9 +65,15 @@ function Chat() {
     }
   });
 
+  useEffect(() => {
+    if(chatRef.current?.scrollTop) {
+      chatRef.current.scrollTop = chatRef.current?.scrollHeight;
+    }
+  }, [data]);
+
   return (
     <>
-      {!auth?.token && <Redirect to="/" />}
+      {!isAuth && <Redirect to="/" />}
       <Grid templateRows="1fr auto" h="calc(100vh - 64px)">
         {loading && <Progress isIndeterminate colorScheme={COLOR_SCHEME} size="xs" />}
         <Stack ref={chatRef} spacing="3" overflowY="auto" px="3">

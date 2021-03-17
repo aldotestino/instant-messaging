@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Flex, Text, Avatar } from '@chakra-ui/react';
+import { Stack, Flex, Text, Avatar, useColorModeValue } from '@chakra-ui/react';
 import { useAuth } from '../store';
 import { MessagesQuery_messages } from '../__generated__/MessagesQuery';
 import formatDate from '../utils/formatDate';
@@ -15,10 +15,11 @@ function Message({ message, showDate }: MessageProps) {
   const { auth } = useAuth();
   const isMine = message.user?.id === auth?.user?.id;
   const { time, date } = formatDate(message.createdAt);
+  const dateColor = useColorModeValue('gray.400', 'gray.700');
 
   return (
     <>
-      {showDate && <Text alignSelf="center" textAlign="center" bgColor="gray.700" color="white" px={3} rounded="full">{date}</Text>}
+      {showDate && <Text alignSelf="center" textAlign="center" bgColor={dateColor} color="white" px={3} rounded="full">{date}</Text>}
       <Flex alignSelf={!isMine ? 'flex-start' : 'flex-end'}>
         {!isMine && <Avatar src={message.user?.avatar || ''} name={message.user?.username} mr={2} />}
         <Stack color="white" p={2} bg={`${COLOR_SCHEME}.${isMine ? '400' : '800'}`} rounded="lg" spacing="0" minW="150px" maxW="250px" shadow="lg">

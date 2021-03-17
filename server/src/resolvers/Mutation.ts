@@ -23,13 +23,13 @@ const login: ResolverFunc<unknown, LoginInput> = async (_, { password, username 
   });
 
   if(!user) {
-    throw new Error('User doesn\'t exist');
+    throw new Error('Utente inesistente');
   }
 
   const passwordMatch = await bcrypt.compare(password, user.password);
 
   if(!passwordMatch) {
-    throw new Error('Incorrect password');
+    throw new Error('Password errata');
   }
 
   const { JWT_SECRET } = process.env;
@@ -71,13 +71,13 @@ const changePassword: ResolverFunc<unknown, ChangePasswordInput> = async (_, { o
   });
 
   if(!user) {
-    throw new Error('User doesn\'t exist');
+    throw new Error('Utente inesistente');
   }
 
   const passwordMatch = await bcrypt.compare(oldPassword, user?.password);
 
   if(!passwordMatch) {
-    throw new Error('Incorrect password');
+    throw new Error('Password errata');
   }
 
   const password = await bcrypt.hash(newPassword, 10);

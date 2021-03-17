@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Avatar, Button, Flex, Menu, MenuButton, IconButton, MenuItem, MenuList, Spacer, Stack, Text, useColorModeValue, useColorMode } from '@chakra-ui/react';
+import { Avatar, Button, Flex, Menu, MenuButton, IconButton, MenuItem, MenuList, Spacer, Stack, Text, useColorModeValue, useColorMode, MenuDivider } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
 import ColorModeSwitcher from './ColorModeSwitcher';
@@ -11,8 +11,7 @@ function NavBar() {
   const isHome = useMemo(() => location.pathname === '/', [location]);
   const isChat = useMemo(() => location.pathname === '/chat', [location]);
   const isProfile = useMemo(() => location.pathname.includes('/profile'), [location]);
-  const { auth, logout } = useAuth();
-  const color = useColorModeValue('gray.200', 'gray.600');
+  const { auth, logout, isAuth } = useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
 
   return(
@@ -26,12 +25,15 @@ function NavBar() {
           </Link>}
       <Spacer />
       <Stack direction="row" align="center">
-        {!auth?.token && <ColorModeSwitcher />}
+        {!isAuth && <ColorModeSwitcher />}
         {isHome && <Button as={Link} to="/login">Login</Button> }
-        {!isHome && auth?.token && auth.user &&  <Menu>
-          <Avatar as={MenuButton} size="md" src={auth.user.avatar || ''} name={auth.user.username} />
+        {(!isHome && isAuth) && <Menu>
+          <MenuButton >
+            <Avatar src={auth?.user?.avatar|| ''} name={auth?.user?.username} />
+          </MenuButton>
           <MenuList>
-            <MenuItem borderBottom="1px" borderBottomColor={color}>Registrato come <br/> @{auth.user.username}</MenuItem>
+            <MenuItem b>Registrato come <br/> @{auth?.user?.username}</MenuItem>
+            <MenuDivider />
             <MenuItem as={Link} to="/profile" >Impostazioni account</MenuItem>
             <MenuItem as={Link} to="/profile/change-password">Cambia password</MenuItem>
             <MenuItem onClick={toggleColorMode}>Usa tema {colorMode === 'dark' ? 'chiaro' : 'scuro'}</MenuItem>

@@ -1,31 +1,55 @@
 import { ViewIcon } from '@chakra-ui/icons';
-import { Input, InputGroup, InputLeftElement, Stack, useColorModeValue, Text, Button, Heading } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, Stack, useColorModeValue, Text, Button, Heading, useToast } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { useAuth } from '../store';
-import { ChangePasswordArgs, validateChangePasswordArgs } from '../utils/authHelpers';
+import { validateChangePasswordArgs } from '../utils/authHelpers';
+import { gql, useMutation } from '@apollo/client';
+import { ChangePasswordMutation, ChangePasswordMutationVariables } from '../__generated__/ChangePasswordMutation';
+
+const CHANGE_PASSWORD_MUTATION = gql`
+  mutation ChangePasswordMutation($oldPassword: String!, $newPassword: String!) {
+    changePassword(oldPassword: $oldPassword, newPassword: $newPassword)
+  }
+`;
 
 function Profile() {
 
-  const { auth } = useAuth();
+  const { isAuth } = useAuth();
   const errorColor = useColorModeValue('red.500', 'red.200');
+  const toast = useToast();
 
-  const initialValues: ChangePasswordArgs = {
+  const [changePassword, { loading }] = useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(CHANGE_PASSWORD_MUTATION, {
+    onError: () => {
+      toast({
+        title: 'Errore',
+        description: 'Password errata',
+        status: 'error',
+        duration: 3000,
+        position: 'top-right',
+        isClosable: true
+      });
+    }
+  });
+
+  const initialValues: ChangePasswordMutationVariables = {
     oldPassword: '',
     newPassword: ''
   };
 
   return (
     <>
-      {!auth?.token && <Redirect to="/login" />}
+      {!isAuth && <Redirect to="/login" />}
       <Layout>
         <Heading fontStyle="italic">Cambia password</Heading>
         <Formik
           initialValues={initialValues}
           onSubmit={values => {
-            console.log(values);
+            changePassword({
+              variables: values
+            });
           }}
           validate={validateChangePasswordArgs}
         >
@@ -48,7 +72,7 @@ function Profile() {
                 <Text color={errorColor}>{formik.errors.newPassword}</Text>
               ) : null}
 
-              <Button type="submit">Aggiorna</Button>
+              <Button type="submit" isLoading={loading}>Aggiorna</Button>
             </Stack>
           </Form>}
         </Formik>

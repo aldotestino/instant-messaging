@@ -1,5 +1,7 @@
+import { ChangePasswordMutationVariables } from '../__generated__/ChangePasswordMutation';
 import { LoginMutationVariables } from '../__generated__/LoginMutation';
 import { SignupMutationVariables } from '../__generated__/SignupMutation';
+import { UpdateMutationVariables } from '../__generated__/UpdateMutation';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
@@ -50,13 +52,8 @@ export function validateLoginArgs(values: LoginMutationVariables) {
   return errors;
 };
 
-export interface UpdateArgs {
-  newUsername: string
-  newAvatar?: string
-}
-
-export function validateUpdateArgs(values: UpdateArgs) {
-  const errors: Partial<UpdateArgs> = {}; 
+export function validateUpdateArgs(values: UpdateMutationVariables) {
+  const errors: Partial<UpdateMutationVariables> = {}; 
 
   if (!values.newUsername) {
     errors.newUsername = 'Required';
@@ -71,13 +68,8 @@ export function validateUpdateArgs(values: UpdateArgs) {
   return errors;
 };
 
-export interface ChangePasswordArgs {
-  oldPassword: string
-  newPassword: string
-}
-
-export function validateChangePasswordArgs(values: ChangePasswordArgs) {
-  const errors: Partial<ChangePasswordArgs> = {}; 
+export function validateChangePasswordArgs(values: ChangePasswordMutationVariables) {
+  const errors: Partial<ChangePasswordMutationVariables> = {}; 
 
   if (!values.oldPassword) {
     errors.oldPassword = 'Required';
@@ -93,8 +85,3 @@ export function validateChangePasswordArgs(values: ChangePasswordArgs) {
 
   return errors;
 };
-
-
-export function getTokenFromLocalStorage(): string  {
-  return JSON.parse(localStorage.getItem('auth') || '{}').token || '';
-}

@@ -1,13 +1,5 @@
 import React, { useRef } from 'react';
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  Button,
-} from '@chakra-ui/react';
+import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from '@chakra-ui/react';
 
 interface ConfirmActionProps {
   isOpen: boolean
@@ -15,10 +7,11 @@ interface ConfirmActionProps {
   action: () => void
   title: string
   description: string
-  primary: string
+  primary: string,
+  loading: boolean
 }
 
-function ConfirmAction({ isOpen, onClose, action, title, description, primary }: ConfirmActionProps) {
+function ConfirmAction({ isOpen, onClose, action, title, description, primary, loading }: ConfirmActionProps) {
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -42,7 +35,7 @@ function ConfirmAction({ isOpen, onClose, action, title, description, primary }:
             <Button ref={cancelRef} onClick={onClose}>
               Annulla
             </Button>
-            <Button colorScheme="red" onClick={action} ml={3}>
+            <Button colorScheme="red" isLoading={loading} onClick={action} ml={3}>
               {primary}
             </Button>
           </AlertDialogFooter>

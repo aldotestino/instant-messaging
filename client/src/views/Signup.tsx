@@ -27,7 +27,7 @@ function Signup() {
     onError: () => {
       toast({
         title: 'Errore',
-        description: 'User already exist',
+        description: 'Utente già esistente',
         status: 'error',
         duration: 3000,
         position: 'top-right',
@@ -93,7 +93,7 @@ function Signup() {
               <Text color={errorColor}>{formik.errors.avatar}</Text>
             ) : null}
 
-            <Button type="submit" colorScheme={COLOR_SCHEME} isLoading={loading}>Registrati</Button>
+            <Button type="submit" colorScheme={COLOR_SCHEME} isLoading={loading}>Signup</Button>
             <Text>Possiedi già un account?&nbsp;
               <CLink as={Link} color={color} to="/login">Effettua il login!</CLink>
             </Text>

@@ -17,7 +17,7 @@ const server = new ApolloServer({
     ...req,
     prisma,
     pubsub,
-    userId: req ? getUserId(req) : getUserId(connection?.context)
+    userId: req ? getUserId(req) : connection ? getUserId(connection.context) : null
   }),
   subscriptions: {
     onConnect: (connectionParams: any) => ({

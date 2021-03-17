@@ -1,40 +1,81 @@
 import { AtSignIcon, ViewIcon } from '@chakra-ui/icons';
-import { Avatar, Input, InputGroup, InputLeftElement, Stack, useColorModeValue, Text, Button, useDisclosure } from '@chakra-ui/react';
+import { Avatar, Input, InputGroup, InputLeftElement, Stack, useColorModeValue, Text, Button, useDisclosure, useToast } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ConfirmAction from '../components/ConfirmAction';
 import { useAuth } from '../store';
-import { UpdateArgs, validateUpdateArgs } from '../utils/authHelpers';
+import { validateUpdateArgs } from '../utils/authHelpers';
+import { gql, useMutation } from '@apollo/client';
+import { UpdateMutation, UpdateMutationVariables } from '../__generated__/UpdateMutation';
+
+const UPDATE_MUTATION = gql`
+  mutation UpdateMutation($newUsername: String!, $newAvatar: String!) {
+    update(newUsername: $newUsername, newAvatar: $newAvatar) {
+      id
+      username
+      avatar
+    }
+  }
+`;
+
+const DELETE_ACCOUNT = gql`
+  mutation DeleteAccount {
+    deleteAccount
+  }
+`;
 
 function Profile() {
 
-  const { auth } = useAuth();
+  const { auth, isAuth, setAuth, logout } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+
+  const [update, { loading }] = useMutation<UpdateMutation, UpdateMutationVariables>(UPDATE_MUTATION, {
+    onCompleted: ({ update }) => {
+      setAuth(prevAuth => ({ ...prevAuth, user: update }));
+      localStorage.setItem('user', JSON.stringify(update));
+    },
+    onError: () => {
+      toast({
+        title: 'Errore',
+        description: 'Utente già esistente',
+        status: 'error',
+        duration: 3000,
+        position: 'top-right',
+        isClosable: true
+      });
+    }
+  });
+
+  const [deleteAccount, { loading: loadingDelete }] = useMutation(DELETE_ACCOUNT);
 
   const errorColor = useColorModeValue('red.500', 'red.200');
 
-  const initialValues: UpdateArgs = {
+  const initialValues: UpdateMutationVariables = {
     newUsername: auth?.user?.username!,
-    newAvatar: auth?.user?.avatar || undefined
+    newAvatar: auth?.user?.avatar || ''
   };
 
-  function onDelete() {
-    console.log('Account eliminato');
+  async function onDelete() {
+    await deleteAccount();
+    logout();
   }
 
   return (
     <>
-      {!auth?.token && <Redirect to="/login" />}
+      {!isAuth && <Redirect to="/login" />}
       <ConfirmAction isOpen={isOpen} onClose={onClose} action={onDelete}
         title="Elimina Account" description="Sei sicuro di voler eliminare il tuo account?
-        Tutti i tuoi messaggi verranno eliminati." primary="Elimina" />
+        Tutti i tuoi messaggi verranno eliminati." primary="Elimina" loading={loadingDelete} />
       <Layout>
         <Formik
           initialValues={initialValues}
           onSubmit={values => {
-            console.log(values);
+            update({
+              variables: values
+            });
           }}
           validate={validateUpdateArgs}
         >
@@ -59,7 +100,7 @@ function Profile() {
                 <Text color={errorColor}>{formik.errors.newAvatar}</Text>
               ) : null}
 
-              <Button type="submit">Aggiorna</Button>
+              <Button type="submit" isLoading={loading}>Aggiorna</Button>
               <Button colorScheme="red" onClick={onOpen}>Elimina Account</Button>
             </Stack>
           </Form>}

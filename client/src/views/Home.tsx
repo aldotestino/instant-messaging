@@ -7,11 +7,11 @@ import { useAuth } from '../store';
 
 function Home() {
 
-  const { auth } = useAuth();
+  const { isAuth } = useAuth();
 
   return (
     <>
-      {auth?.token && <Redirect to="/chat" />}
+      {isAuth && <Redirect to="/chat" />}
       <Layout>
         <Heading>Instant Messaging</Heading>
         <Text fontSize="1.5rem">Chat Better, chat Faster</Text>
