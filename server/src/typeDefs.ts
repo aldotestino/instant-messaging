@@ -27,7 +27,7 @@ export const typeDefs = gql`
   type Mutation {
     signup(email: String!, username: String!, avatar: String, password: String!): Boolean!
     login(username: String!, password: String!): AuthPayload
-    update(username: String, avatar: String): User!
+    update(newUsername: String!, newAvatar: String): User
     changePassword(oldPassword: String, newPassword: String!): Boolean!
     deleteAccount: Boolean!
     post(content: String!): Message 

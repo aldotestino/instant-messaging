@@ -5,7 +5,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { useAuth } from '../store';
-import { ChangePasswordArgs, validateChangePasswordArgs } from '../utils/auth';
+import { ChangePasswordArgs, validateChangePasswordArgs } from '../utils/authHelpers';
 
 function Profile() {
 

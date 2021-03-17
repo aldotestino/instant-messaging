@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink, split } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { WebSocketLink } from '@apollo/client/link/ws';
-import { getTokenFromLocalStorage } from './auth';
+import { getTokenFromLocalStorage } from './authHelpers';
 import { getMainDefinition } from '@apollo/client/utilities';
 
 const isProduction = process.env.NODE_ENV === 'production';

@@ -19,6 +19,16 @@ export interface LoginInput {
   password: string
 }
 
+export interface UpdateInput {
+  newUsername: string
+  newAvatar?: string
+}
+
+export interface ChangePasswordInput {
+  oldPassword: string
+  newPassword: string
+}
+
 export enum Events {
   NEW_MESSAGE='NEW_MESSAGE'
 }

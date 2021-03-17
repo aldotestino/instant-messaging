@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
 import { EmailIcon, AtSignIcon, LockIcon, ViewIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputLeftElement, Stack, Text, Link as CLink, Button, Heading, useColorModeValue, useToast } from '@chakra-ui/react';
-import { validateSignupArgs } from '../utils/auth';
+import { validateSignupArgs } from '../utils/authHelpers';
 import { gql, useMutation } from '@apollo/client';
 import { SignupMutation, SignupMutationVariables } from '../__generated__/SignupMutation';
 import { COLOR_SCHEME } from '../utils/config';

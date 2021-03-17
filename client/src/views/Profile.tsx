@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ConfirmAction from '../components/ConfirmAction';
 import { useAuth } from '../store';
-import { UpdateArgs, validateUpdateArgs } from '../utils/auth';
+import { UpdateArgs, validateUpdateArgs } from '../utils/authHelpers';
 
 function Profile() {
 
