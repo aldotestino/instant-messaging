@@ -23,7 +23,7 @@ function ConfirmAction({ isOpen, onClose, action, title, description, primary, l
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+          <AlertDialogHeader fontSize="2xl" fontStyle="italic" fontWeight="bold">
             {title}
           </AlertDialogHeader>
 

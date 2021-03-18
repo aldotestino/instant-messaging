@@ -1,4 +1,4 @@
-import { ViewIcon } from '@chakra-ui/icons';
+import { LockIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputLeftElement, Stack, useColorModeValue, Text, Button, Heading, useToast } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
@@ -57,7 +57,7 @@ function Profile() {
             <Stack spacing="3" w="xs">
 
               <InputGroup>
-                <InputLeftElement children={<ViewIcon />} />
+                <InputLeftElement children={<LockIcon />} />
                 <Input as={Field} type="password" placeholder="Vecchia password" name="oldPassword" id="oldPassword" />
               </InputGroup>
               {formik.touched.oldPassword && formik.errors.oldPassword ? (
@@ -65,7 +65,7 @@ function Profile() {
               ) : null}
 
               <InputGroup>
-                <InputLeftElement children={<ViewIcon />} />
+                <InputLeftElement children={<LockIcon />} />
                 <Input as={Field} type="password" placeholder="Nuova password" name="newPassword" id="newPassword" />
               </InputGroup>
               {formik.touched.newPassword && formik.errors.newPassword ? (
