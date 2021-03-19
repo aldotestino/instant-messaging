@@ -3,3 +3,4 @@
 /server/prisma/dev.db*
 /dist
 .DS_Store
+/database-data

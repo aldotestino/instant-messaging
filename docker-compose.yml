@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  server:
+    build: ./server
+    env_file: 
+      - ./server/.env
+    volumes: 
+      - ./server:/usr/app/server
+      - /usr/app/server/node_modules
+    ports: 
+      - 4000:4000
+    container_name: server
+    depends_on:
+      - db
+
+  client:
+    build: ./client
+    volumes: 
+      - ./client:/usr/app/client
+      - /usr/app/client/node_modules
+    ports: 
+      - 3000:3000
+    container_name: client
+    depends_on: 
+      - server
+
+  db:
+    image: postgres
+    volumes:
+      - ./database-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: 
+      - 5432:5432
+    container_name: db
+
+volumes:
+  database-data:
+    name: instant-messaging

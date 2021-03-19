@@ -1,8 +1,6 @@
 import { ApolloServer, PubSub } from 'apollo-server';
 import { PrismaClient } from '@prisma/client';
-import dotenv from 'dotenv';
 import EventEmitter from 'events';
-dotenv.config();
 
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
@@ -32,4 +30,6 @@ const server = new ApolloServer({
   }
 });
 
-server.listen().then(({ url }) => console.log(`Server running at ${url}`));
+const port = process.env.PORT || 4000;
+
+server.listen({ port }).then(({ url }) => console.log(`Server running at ${url}`));

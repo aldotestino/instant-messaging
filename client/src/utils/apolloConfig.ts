@@ -5,7 +5,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const SERVER_URI = isProduction ? 'server-instant-messaging.herokuapp.com' : '192.168.1.104:4000';
+const SERVER_URI = isProduction ? 'server-instant-messaging.herokuapp.com' : 'localhost:4000';
 
 const httpLink = new HttpLink({ uri: `http${isProduction ? 's' : ''}://${SERVER_URI}` });
 
