@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import { Formik, Form, Field } from 'formik';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputLeftElement, Stack, Text, Link as CLink, Button, Heading, useColorModeValue, useToast } from '@chakra-ui/react';
 import { validateLoginArgs } from '../utils/authHelpers';
@@ -25,13 +25,12 @@ const LOGIN_MUTATION = gql`
 
 function Login() {
 
-  const { setAuth } = useAuth();
+  const { setAuth, isAuth } = useAuth();
   const history = useHistory();
   const toast = useToast();
 
   const [login, { loading }] = useMutation<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION, {
     onCompleted: ({ login }) => {
-      localStorage.setItem('user', JSON.stringify(login?.user));
       localStorage.setItem('token', login?.token!);
       setAuth(login);
       history.push('/chat');
@@ -57,44 +56,47 @@ function Login() {
   };
 
   return (
-    <Layout>
-      <Heading fontStyle="italic">Login</Heading>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={values => {
-          login({
-            variables: values
-          });
-        }}
-        validate={validateLoginArgs}
-      >
-        {formik => <Form>
-          <Stack spacing="3" w="xs">
+    <>
+      {isAuth && <Redirect to="/chat" />}
+      <Layout>
+        <Heading fontStyle="italic">Login</Heading>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={values => {
+            login({
+              variables: values
+            });
+          }}
+          validate={validateLoginArgs}
+        >
+          {formik => <Form>
+            <Stack spacing="3" w="xs">
 
-            <InputGroup>
-              <InputLeftElement children={<AtSignIcon />} />
-              <Input as={Field} type="text" placeholder="Username" name="username" id="username" />
-            </InputGroup>
-            {formik.touched.username && formik.errors.username ? (
-              <Text color={errorColor}>{formik.errors.username}</Text>
-            ) : null}
+              <InputGroup>
+                <InputLeftElement children={<AtSignIcon />} />
+                <Input as={Field} type="text" placeholder="Username" name="username" id="username" />
+              </InputGroup>
+              {formik.touched.username && formik.errors.username ? (
+                <Text color={errorColor}>{formik.errors.username}</Text>
+              ) : null}
 
-            <InputGroup>
-              <InputLeftElement children={<LockIcon />} />
-              <Input as={Field} type="password" placeholder="Password" name="password" id="password" />
-            </InputGroup>
-            {formik.touched.password && formik.errors.password ? (
-              <Text color={errorColor}>{formik.errors.password}</Text>
-            ) : null}
+              <InputGroup>
+                <InputLeftElement children={<LockIcon />} />
+                <Input as={Field} type="password" placeholder="Password" name="password" id="password" />
+              </InputGroup>
+              {formik.touched.password && formik.errors.password ? (
+                <Text color={errorColor}>{formik.errors.password}</Text>
+              ) : null}
 
-            <Button type="submit" colorScheme={COLOR_SCHEME} isLoading={loading}>Login</Button>
-            <Text>Non hai un account?&nbsp;
-              <CLink as={Link} color={color} to="/signup">Registrati!</CLink>
-            </Text>
-          </Stack>
-        </Form>}
-      </Formik>
-    </Layout>
+              <Button type="submit" colorScheme={COLOR_SCHEME} isLoading={loading}>Login</Button>
+              <Text>Non hai un account?&nbsp;
+                <CLink as={Link} color={color} to="/signup">Registrati!</CLink>
+              </Text>
+            </Stack>
+          </Form>}
+        </Formik>
+      </Layout>
+    </>
   );
 }
 

@@ -8,14 +8,12 @@
 // ====================================================
 
 export interface NewMessageSubscription_newMessage_user {
-  __typename: "User";
   id: string;
   username: string;
   avatar: string | null;
 }
 
 export interface NewMessageSubscription_newMessage {
-  __typename: "Message";
   id: string;
   content: string;
   createdAt: any;

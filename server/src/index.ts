@@ -1,6 +1,7 @@
 import { ApolloServer, PubSub } from 'apollo-server';
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
+import EventEmitter from 'events';
 dotenv.config();
 
 import { typeDefs } from './typeDefs';
@@ -8,7 +9,10 @@ import { resolvers } from './resolvers';
 import { getUserId } from './utils/getUserId';
 
 const prisma = new PrismaClient();
-const pubsub = new PubSub();
+
+const emitter = new EventEmitter();
+emitter.setMaxListeners(100);
+const pubsub = new PubSub({ eventEmitter: emitter });
 
 const server = new ApolloServer({
   typeDefs,

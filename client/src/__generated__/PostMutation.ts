@@ -8,7 +8,6 @@
 // ====================================================
 
 export interface PostMutation_post {
-  __typename: "Message";
   id: string;
 }
 

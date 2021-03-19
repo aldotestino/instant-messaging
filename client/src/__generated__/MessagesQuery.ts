@@ -8,14 +8,12 @@
 // ====================================================
 
 export interface MessagesQuery_messages_user {
-  __typename: "User";
   id: string;
   username: string;
   avatar: string | null;
 }
 
 export interface MessagesQuery_messages {
-  __typename: "Message";
   id: string;
   content: string;
   createdAt: any;

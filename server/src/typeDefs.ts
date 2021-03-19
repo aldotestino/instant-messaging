@@ -18,6 +18,7 @@ export const typeDefs = gql`
 
   type Query {
     messages: [Message!]!
+    me: User
   }
 
   type Subscription {

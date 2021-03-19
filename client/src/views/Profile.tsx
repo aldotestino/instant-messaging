@@ -34,8 +34,14 @@ function Profile() {
 
   const [update, { loading }] = useMutation<UpdateMutation, UpdateMutationVariables>(UPDATE_MUTATION, {
     onCompleted: ({ update }) => {
-      setAuth(prevAuth => ({ ...prevAuth, user: update }));
-      localStorage.setItem('user', JSON.stringify(update));
+      setAuth({
+        token: auth?.token || null,
+        user: {
+          id: update?.id!,
+          username: update?.username!,
+          avatar: update?.avatar || null
+        }
+      });
     },
     onError: () => {
       toast({

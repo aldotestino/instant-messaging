@@ -43,7 +43,7 @@ let currentDate = '';
 function Chat() {
 
   const { isAuth } = useAuth();
-  const chatRef = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<HTMLSpanElement>(null);
   
   const { data, loading, subscribeToMore } = useQuery<MessagesQuery>(MESSAGES_QUERY);
   
@@ -66,9 +66,7 @@ function Chat() {
   });
 
   useEffect(() => {
-    if(chatRef.current?.scrollTop) {
-      chatRef.current.scrollTop = chatRef.current?.scrollHeight;
-    }
+    chatRef.current?.scrollIntoView({ 'behavior': 'auto' });
   }, [data]);
 
   return (
@@ -76,7 +74,7 @@ function Chat() {
       {!isAuth && <Redirect to="/" />}
       <Grid templateRows="1fr auto" h="calc(100vh - 64px)">
         {loading && <Progress isIndeterminate colorScheme={COLOR_SCHEME} size="xs" />}
-        <Stack ref={chatRef} spacing="3" overflowY="auto" px="3">
+        <Stack spacing="3" overflowY="auto" px="3">
           {data?.messages.map((m, i) => {
             const messageDate = new Date(m.createdAt).toLocaleDateString();
             let showDate = false;
@@ -86,6 +84,7 @@ function Chat() {
             }
             return <Message key={m.id} message={m} showDate={showDate}/>;
           })}
+          <span style={{ margin: 0 }} ref={chatRef}></span>
         </Stack>
         <MessageInput />
       </Grid>

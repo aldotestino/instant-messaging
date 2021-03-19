@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import { Avatar, Button, Flex, Menu, MenuButton, IconButton, MenuItem, MenuList, Spacer, Stack, Text, useColorModeValue, useColorMode, MenuDivider } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import ColorModeSwitcher from './ColorModeSwitcher';
 import { useAuth } from '../store';
 
 function NavBar() {
 
   const location = useLocation();
+  const history = useHistory();
   const isHome = useMemo(() => location.pathname === '/', [location]);
   const isChat = useMemo(() => location.pathname === '/chat', [location]);
   const isProfile = useMemo(() => location.pathname.includes('/profile'), [location]);
@@ -19,7 +20,7 @@ function NavBar() {
       {isChat ? 
         <Text fontSize="x-large">Chat</Text>: 
         isProfile ?
-          <IconButton aria-label="to-chat" as={Link} to="/chat" variant="ghost" icon={<ArrowBackIcon w="25px" h="25px" />} /> :
+          <IconButton aria-label="to-chat" onClick={() => history.goBack()} variant="ghost" icon={<ArrowBackIcon w="25px" h="25px" />} /> :
           <Link to="/">
             <Text fontSize="1.25rem">Instant Messaging</Text>
           </Link>}
@@ -29,7 +30,7 @@ function NavBar() {
         {isHome && <Button as={Link} to="/login">Login</Button> }
         {(!isHome && isAuth) && <Menu>
           <MenuButton >
-            <Avatar src={auth?.user?.avatar|| ''} name={auth?.user?.username} />
+            <Avatar src={auth?.user?.avatar || ''} name={auth?.user?.username} />
           </MenuButton>
           <MenuList>
             <MenuItem b>Registrato come <br/> @{auth?.user?.username}</MenuItem>
