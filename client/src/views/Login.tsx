@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import { Formik, Form, Field } from 'formik';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
-import { Input, InputGroup, InputLeftElement, Stack, Text, Link as CLink, Button, Heading, useColorModeValue, useToast } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, Stack, Text, Link as CLink, Button, Heading, useColorModeValue, useToast, FormControl, FormErrorMessage } from '@chakra-ui/react';
 import { validateLoginArgs } from '../utils/authHelpers';
 import { gql, useMutation } from '@apollo/client';
 import { useAuth } from '../store';
@@ -48,7 +48,6 @@ function Login() {
   });
 
   const color = useColorModeValue(`${COLOR_SCHEME}.500`, `${COLOR_SCHEME}.200`);
-  const errorColor = useColorModeValue('red.500', 'red.200');
 
   const initialValues: LoginMutationVariables = {
     username: '',
@@ -72,21 +71,21 @@ function Login() {
           {formik => <Form>
             <Stack spacing="3" w="xs">
 
-              <InputGroup>
-                <InputLeftElement children={<AtSignIcon />} />
-                <Input as={Field} type="text" placeholder="Username" name="username" id="username" />
-              </InputGroup>
-              {formik.touched.username && formik.errors.username ? (
-                <Text color={errorColor}>{formik.errors.username}</Text>
-              ) : null}
+              <FormControl isInvalid={formik.touched.username && !!formik.errors.username}>
+                <InputGroup>
+                  <InputLeftElement children={<AtSignIcon />} />
+                  <Input as={Field} type="text" placeholder="Username" name="username" id="username" />
+                </InputGroup>
+                <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
+              </FormControl>
 
-              <InputGroup>
-                <InputLeftElement children={<LockIcon />} />
-                <Input as={Field} type="password" placeholder="Password" name="password" id="password" />
-              </InputGroup>
-              {formik.touched.password && formik.errors.password ? (
-                <Text color={errorColor}>{formik.errors.password}</Text>
-              ) : null}
+              <FormControl isInvalid={formik.touched.password && !!formik.errors.password}>
+                <InputGroup>
+                  <InputLeftElement children={<LockIcon />} />
+                  <Input as={Field} type="password" placeholder="Password" name="password" id="password" />
+                </InputGroup>
+                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+              </FormControl>
 
               <Button type="submit" colorScheme={COLOR_SCHEME} isLoading={loading}>Login</Button>
               <Text>Non hai un account?&nbsp;

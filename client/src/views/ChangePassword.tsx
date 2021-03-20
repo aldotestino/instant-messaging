@@ -1,5 +1,5 @@
 import { LockIcon } from '@chakra-ui/icons';
-import { Input, InputGroup, InputLeftElement, Stack, useColorModeValue, Text, Button, Heading, useToast } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, Stack, Button, Heading, useToast, FormErrorMessage, FormControl } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
@@ -18,7 +18,6 @@ const CHANGE_PASSWORD_MUTATION = gql`
 function Profile() {
 
   const { isAuth } = useAuth();
-  const errorColor = useColorModeValue('red.500', 'red.200');
   const toast = useToast();
 
   const [changePassword, { loading }] = useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(CHANGE_PASSWORD_MUTATION, {
@@ -56,21 +55,21 @@ function Profile() {
           {formik => <Form>
             <Stack spacing="3" w="xs">
 
-              <InputGroup>
-                <InputLeftElement children={<LockIcon />} />
-                <Input as={Field} type="password" placeholder="Vecchia password" name="oldPassword" id="oldPassword" />
-              </InputGroup>
-              {formik.touched.oldPassword && formik.errors.oldPassword ? (
-                <Text color={errorColor}>{formik.errors.oldPassword}</Text>
-              ) : null}
+              <FormControl isInvalid={formik.touched.oldPassword && !!formik.errors.oldPassword}>
+                <InputGroup>
+                  <InputLeftElement children={<LockIcon />} />
+                  <Input as={Field} type="password" placeholder="Vecchia password" name="oldPassword" id="oldPassword" />
+                </InputGroup>
+                <FormErrorMessage>{formik.errors.oldPassword}</FormErrorMessage>
+              </FormControl>
 
-              <InputGroup>
-                <InputLeftElement children={<LockIcon />} />
-                <Input as={Field} type="password" placeholder="Nuova password" name="newPassword" id="newPassword" />
-              </InputGroup>
-              {formik.touched.newPassword && formik.errors.newPassword ? (
-                <Text color={errorColor}>{formik.errors.newPassword}</Text>
-              ) : null}
+              <FormControl isInvalid={formik.touched.newPassword && !!formik.errors.newPassword}>
+                <InputGroup>
+                  <InputLeftElement children={<LockIcon />} />
+                  <Input as={Field} type="password" placeholder="Nuova password" name="newPassword" id="newPassword" />
+                </InputGroup>
+                <FormErrorMessage>{formik.errors.newPassword}</FormErrorMessage>
+              </FormControl>
 
               <Button type="submit" isLoading={loading}>Aggiorna</Button>
             </Stack>
