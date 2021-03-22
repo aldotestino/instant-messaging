@@ -1,10 +1,13 @@
-import { ApolloServer, PubSub } from 'apollo-server';
+import { ApolloServer, PubSub } from 'apollo-server-express';
+import http from 'http';
+import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import EventEmitter from 'events';
 
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-import { getUserId } from './utils/getUserId';
+import { getUserId } from './utils/auth';
+import { CLIENT_URI } from './utils/config';
 
 const prisma = new PrismaClient();
 
@@ -30,6 +33,28 @@ const server = new ApolloServer({
   }
 });
 
-const port = process.env.PORT || 4000;
+const app = express();
 
-server.listen({ port }).then(({ url }) => console.log(`Server running at ${url}`));
+app.get('/authenticate/:id', async (req, res) => {
+  const { id } = req.params;
+
+  await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      authenticated: true
+    }
+  });
+  
+  res.redirect(`${CLIENT_URI}/login`);
+}); 
+
+server.applyMiddleware({ app });
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+const PORT = process.env.PORT || 4000;
+httpServer.listen(PORT, () => {
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+});

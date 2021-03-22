@@ -5,9 +5,9 @@ import { getMainDefinition } from '@apollo/client/utilities';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const SERVER_URI = isProduction ? 'server-instant-messaging.herokuapp.com' : 'localhost:4000';
+const SERVER_URI = isProduction ? 'api-instant-messaging.herokuapp.com' : 'localhost:4000';
 
-const httpLink = new HttpLink({ uri: `http${isProduction ? 's' : ''}://${SERVER_URI}` });
+const httpLink = new HttpLink({ uri: `http${isProduction ? 's' : ''}://${SERVER_URI}/graphql` });
 
 const authLink = setContext((_, { headers }) => ({
   headers: {

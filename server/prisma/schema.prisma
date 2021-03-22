@@ -11,12 +11,13 @@ generator client {
 }
 
 model User {
-  id       String    @id @default(cuid())
-  email    String    @unique
-  username String    @unique
-  avatar   String?
-  password String
-  messages Message[]
+  id            String    @id @default(cuid())
+  email         String    @unique
+  username      String    @unique
+  authenticated Boolean   @default(false)
+  avatar        String?
+  password      String
+  messages      Message[]
 }
 
 model Message {

@@ -1,18 +1,21 @@
 import { ChangePasswordInput, Events, LoginInput, ResolverFunc, SignupInput, UpdateInput } from '../utils/types';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { sendEmail } from '../utils/auth';
 
 const signup: ResolverFunc<unknown, SignupInput> = async (_, { password, ...rest }, { prisma }) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  await prisma.user.create({
+  const { id, email } = await prisma.user.create({
     data: {
       ...rest,
       password: hashedPassword
     }
   });
 
-  return true;
+  const result = await sendEmail({ id, email });
+
+  return result;
 };
 
 const login: ResolverFunc<unknown, LoginInput> = async (_, { password, username }, { prisma }) => {
@@ -30,6 +33,10 @@ const login: ResolverFunc<unknown, LoginInput> = async (_, { password, username 
 
   if(!passwordMatch) {
     throw new Error('Password errata');
+  }
+  
+  if(!user.authenticated) {
+    throw new Error('Conferma il tuo account attraverso la mail che ti abbiamo mandato');
   }
 
   const { JWT_SECRET } = process.env;

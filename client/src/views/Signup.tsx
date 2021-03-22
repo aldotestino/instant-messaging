@@ -23,7 +23,17 @@ function Signup() {
   const { isAuth } = useAuth();
 
   const [signup, { loading }] = useMutation<SignupMutation, SignupMutationVariables>(SIGNUP_MUTATION, {
-    onCompleted: () => {
+    onCompleted: ({ signup }) => {
+      if(signup) {
+        toast({
+          title: 'Registrazione',
+          description: 'Registrazione effettuata con successo! Conferma il tuo account cliccando sul link che ti abbiamo mandato per email',
+          status: 'success',
+          duration: 3000,
+          position: 'top-right',
+          isClosable: true
+        });
+      }
       history.push('/login');
     },
     onError: () => {
