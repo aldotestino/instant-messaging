@@ -4,9 +4,14 @@ import { useAuth } from '../store';
 import MessageInput from '../components/MessageInput';
 import { Grid, Progress, Stack } from '@chakra-ui/react';
 import { gql, useQuery } from '@apollo/client';
+import isElectron from 'is-electron';
 import { MessagesQuery } from '../__generated__/MessagesQuery';
 import Message from '../components/Message';
 import { COLOR_SCHEME } from '../utils/config';
+let ipcRenderer: any;
+if(isElectron()) {
+  ipcRenderer = window.require('electron').ipcRenderer;
+}
 
 const MESSAGES_QUERY = gql`
   query MessagesQuery {
@@ -42,11 +47,11 @@ let currentDate = '';
 
 function Chat() {
 
-  const { isAuth } = useAuth();
+  const { isAuth, auth } = useAuth();
   const chatRef = useRef<HTMLSpanElement>(null);
-  
+
   const { data, loading, subscribeToMore } = useQuery<MessagesQuery>(MESSAGES_QUERY);
-  
+
   subscribeToMore({
     document: NEW_MESSAGE_SUBSCRIPTION,
     updateQuery: (prev, { subscriptionData }: any) => {
@@ -58,6 +63,15 @@ function Chat() {
         ({ id }) => id === newMessage.id
       );
       if (exists) return prev;
+      if(isElectron() && newMessage.user.id !== auth?.user?.id) {
+        ipcRenderer.send('@notifications/new_message', {
+          content: newMessage.content,
+          user: {
+            username: newMessage.user.username,
+            avatar: newMessage.user.avatar
+          }
+        });
+      }
       return {
         ...prev,
         messages: [...prev.messages, newMessage]

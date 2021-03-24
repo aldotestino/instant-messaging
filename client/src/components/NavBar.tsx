@@ -17,8 +17,8 @@ function NavBar() {
 
   return(
     <Flex px={3} align="center" height="16" transition="all .2s ease" bg={useColorModeValue('white', 'gray.800')}>
-      {isChat ? 
-        <Text fontSize="x-large">Chat</Text>: 
+      {isChat ?
+        <Text fontSize="x-large">Chat</Text> :
         isProfile ?
           <IconButton aria-label="to-chat" onClick={() => history.goBack()} variant="ghost" icon={<ArrowBackIcon w="25px" h="25px" />} /> :
           <Link to="/">
