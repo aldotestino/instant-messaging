@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
-import { createTransport } from 'nodemailer';
+import { createTransport, TransportOptions } from 'nodemailer';
+import { google } from 'googleapis';
 import { SERVER_URI } from './config';
 
 export function getUserId(req: Request): string | null {
@@ -11,13 +12,37 @@ export function getUserId(req: Request): string | null {
   return String(jwt.verify(req.headers.authorization, JWT_SECRET!));
 }
 
-const transporter = createTransport({
-  service: 'Gmail',
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
-  },
+const OAuth2 = google.auth.OAuth2;
+
+const oauth2Client = new OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  'https://developers.google.com/oauthplayground'
+);
+oauth2Client.setCredentials({
+  refresh_token: process.env.REFRESH_TOKEN
 });
+const accessToken = oauth2Client.getAccessToken();
+
+const transporterOptions = {
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  service: 'Gmail',
+  tls: {
+    rejectUnauthorized: false
+  },
+  auth: {
+    type: 'OAUTH2',
+    user: process.env.EMAIL,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    refreshToken: process.env.REFRESH_TOKEN,
+    accessToken: accessToken,
+  }
+} as TransportOptions;
+
+const transporter = createTransport(transporterOptions);
 
 interface SendEmailProps {
   email: string,
