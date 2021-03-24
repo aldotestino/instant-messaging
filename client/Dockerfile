@@ -1,13 +1,7 @@
-FROM node:latest
-
-WORKDIR /usr/app/client/
-
+FROM node
+WORKDIR /usr/app/client
 COPY package*.json ./
-
 RUN npm install
-
-COPY . ./
-
+COPY . .
 EXPOSE 3000
-
-CMD [ "npm", "start" ]
+CMD npm start

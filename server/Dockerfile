@@ -1,15 +1,7 @@
-FROM node:latest
-
-WORKDIR /usr/app/server/
-
+FROM node
+WORKDIR /usr/app/server
 COPY package*.json ./
-
 RUN npm install
-
-COPY . ./
-
-RUN npm run build
-
-EXPOSE 3001
-
-CMD [ "node", "out/index.js" ]
+COPY . .
+EXPOSE 4000
+CMD ./run.sh
