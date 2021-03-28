@@ -5,7 +5,11 @@ const messages: ResolverFunc<unknown, unknown> = (_, __, { prisma, userId }) => 
     throw new Error('You have to be logged in to get all the messages');
   }
 
-  return prisma.message.findMany();
+  return prisma.message.findMany({
+    orderBy: {
+      createdAt: 'asc'
+    }
+  });
 };
 
 const me: ResolverFunc<unknown, unknown> = (_, __, { prisma, userId }) => {
