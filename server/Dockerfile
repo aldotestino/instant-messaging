@@ -1,4 +1,4 @@
-FROM node
+FROM node:14
 ARG DATABASE_URL
 WORKDIR /usr/app/server
 COPY package*.json ./
